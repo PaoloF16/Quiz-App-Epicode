@@ -32,13 +32,18 @@
         </ul>
         </section>
         </section>
-        <section class="terms-condition-button">
-            <input type="checkbox" id="term-condition" name="term-condition" value="required">
-            <label for="terms">I promise to answer myself without help from anyone</label>
-        </section>
-        <section class="button">
-            <a href="benchmark.html"><button>Proceed</button></a>
-        </section>
+        <form action="benchmark.html">
+    <section class="terms-condition-button">
+        <input type="checkbox" id="term-condition" name="term-condition" required>
+        <label for="term-condition">
+            I promise to answer myself without help from anyone
+        </label>
+    </section>
+
+    <section class="button-start">
+        <button type="submit">Proceed</button>
+    </section>
+</form>
     </main>
     <footer></footer>
     <script src="./JS/main.js"></script>
