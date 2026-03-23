@@ -50,7 +50,7 @@ main {
   margin: 0 0 10px 0;
   font-size: 1.7rem;
   color: #ff00b7;
-  font-weight: 800;
+  font-weight:800;
 }
 
 .subtitle p {
@@ -59,6 +59,7 @@ main {
   line-height: 1.35;
   color: #f3f3f3;
   max-width: 760px;
+  font-weight: 500;
 }
 /* -------------------------
    LIST
@@ -77,6 +78,7 @@ main {
 .list li {
   margin-bottom: 14px;
   font-size: 1.1rem;
+  font-weight: 500;
   line-height: 1.4;
   padding-left: 0, 5vw;
   color: #f5f5f5;
@@ -93,26 +95,29 @@ main {
   grid-area: terms;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 1vw;
   align-self: end;
-  padding-bottom: 18px;
+  padding-bottom: 1vw;
 }
 .terms-condition-button input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 2vw;
+  height:2vw;
   border: 3px solid #ffffff;
   background: transparent;
   cursor: pointer;
   display: inline-block;
   position: relative;
+  top: 0.7vw;
+  padding-right: 1vw;
+  margin-right: 1.5vw;
 }
 
 .terms-condition-button input[type="checkbox"]:checked::after {
   content: "";
   position: absolute;
-  left: 5px;
+  left: 1vw;
   top: 0px;
   width: 6px;
   height: 12px;
@@ -209,11 +214,11 @@ main {
     font-size: 1.1rem;
   }
 
-  .button {
+  .button-start {
     justify-self: start;
   }
 
-  .button button {
+  .button-start button {
     min-width: 210px;
     height: 64px;
     font-size: 1.6rem;
@@ -236,7 +241,7 @@ main {
     font-size: 1rem;
   }
 
-  .button button {
+  .button-start button {
     width: 100%;
     min-width: unset;
   }
