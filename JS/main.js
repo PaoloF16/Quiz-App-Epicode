@@ -149,7 +149,7 @@ const displayNextQuestion = (questionObj) => {
     questionTitle.innerText = `The Quiz is over.\n
                                     Go to your results!`;
     buttonSpace.innerHTML = `
-        <a href="./results.html">
+        <a href="./result.html">
           <button class="button-start">Results</button>
         </a>
     `;
