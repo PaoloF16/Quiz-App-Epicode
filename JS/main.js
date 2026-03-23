@@ -205,7 +205,7 @@ const startTimer = () => {
   const timer = document.querySelector(".timer")
   const progress = document.querySelector(".progress")
 
-  let totalSec = 10
+  let totalSec = 20
   let timeLeft = totalSec
 
   const circumference = 2 * Math.PI * 90
@@ -221,8 +221,14 @@ const startTimer = () => {
 
     if (timeLeft <= 0) {
       clearInterval(timerInterval)
-      const nextQuestionObj = randomQuestionExtraction()
-      displayNextQuestion(nextQuestionObj)
+
+      timer.textContent = 0
+      progress.style.strokeDashoffset = circumference
+
+      setTimeout(() => {
+        const nextQuestionObj = randomQuestionExtraction()
+        displayNextQuestion(nextQuestionObj)
+      }, 200)
     }
 
     timeLeft--

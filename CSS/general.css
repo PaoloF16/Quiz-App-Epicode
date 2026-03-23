@@ -8,7 +8,7 @@ body {
 .up-logo img {
   width: 170px;
   max-width: 100%;
-  display: block;
+  display: inline-block;
 }
 
 header {

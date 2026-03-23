@@ -1,3 +1,8 @@
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .x {
   color: white;
   text-align: center;
@@ -54,6 +59,7 @@ article {
   margin: 0 auto;
 }
 
+/* timer */
 .circle {
   position: relative;
   width: 200px;
@@ -79,7 +85,7 @@ circle {
   stroke: red;
   stroke-dasharray: 565;
   stroke-dashoffset: 565;
-  transition: stroke-dashoffset 1s linear;
+  transition: stroke-dashoffset 0.2s linear;
 }
 
 .timer {
