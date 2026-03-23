@@ -1,4 +1,9 @@
-.x {
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.question-num {
   color: white;
   text-align: center;
 }
@@ -52,4 +57,47 @@ h6 span {
 article {
   width: 413px;
   margin: 0 auto;
+}
+
+/* timer */
+.circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+svg {
+  transform: rotate(-90deg);
+  width: 200px;
+  height: 200px;
+}
+
+circle {
+  fill: none;
+  stroke-width: 15;
+  stroke-linecap: round;
+}
+
+.circular {
+  stroke: #333;
+}
+.progress {
+  stroke: red;
+  stroke-dasharray: 565;
+  stroke-dashoffset: 565;
+  transition: stroke-dashoffset 0.2s linear;
+}
+
+.timer {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.timer span {
+  font-size: 0.4em;
 }

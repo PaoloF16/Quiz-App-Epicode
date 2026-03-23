@@ -150,7 +150,7 @@ const displayNextQuestion = (questionObj) => {
     questionTitle.innerText = `The Quiz is over.\n
                                     Go to your results!`;
     buttonSpace.innerHTML = `
-        <a href="./results.html">
+        <a href="../html/results.html">
           <button class="button-start">Results</button>
         </a>
     `;
@@ -172,15 +172,20 @@ const displayNextQuestion = (questionObj) => {
   buttonAnswers.forEach((button) =>
     button.addEventListener("click", (e) => checkAnswer(e, questionObj)),
   );
+  startTimer();
 };
 
 // Function to check if the answer is correct. If it is, updates score by 1.
 
 const checkAnswer = (e, questionObj) => {
+  clearInterval(timerInterval);
+
   const { correct_answer } = questionObj;
+
   if (e.target.innerText === correct_answer) {
     score++;
   }
+
   const nextQuestionObj = randomQuestionExtraction();
   displayNextQuestion(nextQuestionObj);
 };
@@ -209,3 +214,40 @@ window.addEventListener("load", () => {
     return;
   }
 });
+
+// logica timer
+let timerInterval;
+
+const startTimer = () => {
+  const timer = document.querySelector(".timer");
+  const progress = document.querySelector(".progress");
+
+  let totalSec = 20;
+  let timeLeft = totalSec;
+
+  const circumference = 2 * Math.PI * 90;
+  progress.style.strokeDasharray = circumference;
+
+  clearInterval(timerInterval);
+
+  timerInterval = setInterval(() => {
+    timer.textContent = timeLeft;
+
+    const offset = circumference - (timeLeft / totalSec) * circumference;
+    progress.style.strokeDashoffset = offset;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+
+      timer.textContent = 0;
+      progress.style.strokeDashoffset = circumference;
+
+      setTimeout(() => {
+        const nextQuestionObj = randomQuestionExtraction();
+        displayNextQuestion(nextQuestionObj);
+      }, 200);
+    }
+
+    timeLeft--;
+  }, 1000);
+};
