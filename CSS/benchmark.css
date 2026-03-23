@@ -1,0 +1,68 @@
+body {
+  background-color: #aa7c7c;
+  font-family: "Montserrat";
+  background-image: url(../assets/bg.jpg);
+  background-size: cover;
+}
+
+.up-logo img {
+  width: 170px;
+  max-width: 100%;
+  display: block;
+}
+
+.x {
+  color: white;
+  text-align: center;
+}
+
+#question-title {
+  font-size: 3em;
+  color: white;
+  text-align: center;
+}
+
+h6 {
+  color: white;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+h6 span {
+  color: purple;
+}
+
+#timer {
+  background-color: brown;
+  width: fit-content;
+  height: fit-content;
+}
+
+.button-answer {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 999px;
+
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
+
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+#button-space {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 50px;
+}
+
+article {
+  width: 413px;
+  margin: 0 auto;
+}
