@@ -222,7 +222,7 @@ const startTimer = () => {
   const timer = document.querySelector(".timer")
   const progress = document.querySelector(".progress")
 
-  let totalSec = 5
+  let totalSec = 20
   let timeLeft = totalSec
 
   const circumference = 2 * Math.PI * 90
