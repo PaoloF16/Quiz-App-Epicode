@@ -216,34 +216,29 @@ window.addEventListener("load", () => {
 })
 
 // logica timer
-let timerAnimation
+let timerInterval = null
 
 const startTimer = () => {
   const timer = document.querySelector(".timer")
   const progress = document.querySelector(".progress")
 
-  const totalSec = 10
-  const startTime = Date.now()
+  let totalSec = 5
+  let timeLeft = totalSec
 
   const circumference = 2 * Math.PI * 90
   progress.style.strokeDasharray = circumference
 
-  cancelAnimationFrame(timerAnimation)
+  clearInterval(timerInterval)
 
-  const update = () => {
-    const elapsed = (Date.now() - startTime) / 1000
-    const timeLeft = Math.max(0, totalSec - elapsed)
+  timerInterval = setInterval(() => {
+    timer.textContent = timeLeft
 
-    // numero intero (5,4,3...)
-    timer.textContent = Math.ceil(timeLeft)
-
-    // animazione fluida
     const offset = circumference - (timeLeft / totalSec) * circumference
     progress.style.strokeDashoffset = offset
 
-    if (timeLeft > 0) {
-      timerAnimation = requestAnimationFrame(update)
-    } else {
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval)
+
       progress.style.strokeDashoffset = circumference
 
       setTimeout(() => {
@@ -251,7 +246,7 @@ const startTimer = () => {
         displayNextQuestion(nextQuestionObj)
       }, 200)
     }
-  }
 
-  update()
+    timeLeft--
+  }, 1000)
 }
