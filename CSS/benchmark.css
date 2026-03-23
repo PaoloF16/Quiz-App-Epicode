@@ -1,16 +1,3 @@
-body {
-  background-color: #aa7c7c;
-  font-family: "Montserrat";
-  background-image: url(../assets/bg.jpg);
-  background-size: cover;
-}
-
-.up-logo img {
-  width: 170px;
-  max-width: 100%;
-  display: block;
-}
-
 .x {
   color: white;
   text-align: center;
