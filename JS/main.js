@@ -230,7 +230,11 @@ const startTimer = () => {
 
   clearInterval(timerInterval);
 
+  timer.textContent = timeLeft;
+  progress.style.strokeDashoffset = 0;
+
   timerInterval = setInterval(() => {
+    --timeLeft;
     timer.textContent = timeLeft;
 
     const offset = circumference - (timeLeft / totalSec) * circumference;
@@ -247,7 +251,5 @@ const startTimer = () => {
         displayNextQuestion(nextQuestionObj);
       }, 200);
     }
-
-    timeLeft--;
   }, 1000);
 };
