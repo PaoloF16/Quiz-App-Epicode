@@ -151,9 +151,10 @@ const displayNextQuestion = (questionObj) => {
                                     Go to your results!`
     buttonSpace.innerHTML = `
         <a href="../html/results.html">
-          <button class="button-start">Results</button>
+          <button>Results</button>
         </a>
     `
+    buttonSpace.classList.add("button-start")
     return
   }
   const { question, correct_answer, incorrect_answers } = questionObj
@@ -201,8 +202,8 @@ const displayResults = () => {
   const wrongAnswersP = document.getElementById("number-wrong-answers")
   correctPercentageP.innerText = `${score.toFixed(1) * 10}%`
   wrongPercentageP.innerText = `${(10 - score).toFixed(1) * 10}%`
-  correctAnswersP.innerText = `${score}/10`
-  wrongAnswersP.innerText = `${10 - score}/10`
+  correctAnswersP.innerText = `${score}/10questions`
+  wrongAnswersP.innerText = `${10 - score}/10 questions`
 }
 
 window.addEventListener("load", () => {

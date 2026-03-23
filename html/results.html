@@ -18,7 +18,7 @@
         <h3>The summary of your answers:</h3>
       </section>
       <section id="main-results-section">
-        <article>
+        <article class="rightAnswer">
           <!--risposte corrette-->
           <p>Correct</p>
           <p id="percentage-correct-answers">
@@ -28,16 +28,22 @@
         </article>
         <article>
           <h4>Congratulations!</h4>
-          <p>You passed the exam</p>
-          <p>We'll send you the certificate in few menutes</p>
-          <p>Check your email (including promotion / spam folder)</p>
+          <p class="youPass">You passed the exam</p>
+          <div class="certificate">
+            <p>We'll send you the certificate in few menutes</p>
+            <p>Check your email (including promotion / spam folder)</p>
+          </div>
         </article>
-        <article>
-          <p>wrong</p>
+        <article class="wrongAnswer">
+          <p>Wrong</p>
           <p id="percentage-wrong-answers">percentage</p>
           <p id="number-wrong-answers">wrong answers</p>
         </article>
-        <button>RATE US</button>
+        <div>
+          <a class="button-start" href="./feedback.html"
+            ><button>RATE US</button></a
+          >
+        </div>
       </section>
     </main>
     <script src="../JS/main.js"></script>
