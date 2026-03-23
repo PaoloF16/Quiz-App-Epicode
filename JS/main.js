@@ -1,14 +1,14 @@
 // DOM Elements Declarations
 
-const questionTitle = document.getElementById("question-title");
-const buttonSpace = document.getElementById("button-space");
-const currentQuestionNum = document.getElementById("question-num");
-const buttonAnswers = document.querySelectorAll(".button-answer");
+const questionTitle = document.getElementById("question-title")
+const buttonSpace = document.getElementById("button-space")
+const currentQuestionNum = document.getElementById("question-num")
+const buttonAnswers = document.querySelectorAll(".button-answer")
 
 // Global Variables Delcaration
 
-let score = 0; // Dinamically updated score that will be displayed in the results page.
-let questionNumber = 0; // Number of the question the user is facing.
+let score = 0 // Dinamically updated score that will be displayed in the results page.
+let questionNumber = 0 // Number of the question the user is facing.
 const questions = [
   {
     category: "Science: Computers",
@@ -103,91 +103,141 @@ const questions = [
     correct_answer: "Java",
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
-];
+]
 
-const pulledQuestions = []; // Array domande già poste
+const pulledQuestions = [] // Array domande già poste
 
 const randomQuestionExtraction = function () {
   //funzione per randomizzare domande
   if (pulledQuestions.length === questions.length) {
     //se l'array pulled question è uguale a quello delle question vuol dire che le domande sono finite
-    console.log("Hai risposto a tutte le domande!");
-    return null;
+    console.log("Hai risposto a tutte le domande!")
+    return null
   }
-  let indiceRand;
-  let domandaScelta;
+  let indiceRand
+  let domandaScelta
   do {
-    indiceRand = Math.floor(Math.random() * questions.length); //indice delle domande nell'array
-    domandaScelta = questions[indiceRand];
-  } while (pulledQuestions.includes(domandaScelta));
-  pulledQuestions.push(domandaScelta);
-  return domandaScelta;
-};
+    indiceRand = Math.floor(Math.random() * questions.length) //indice delle domande nell'array
+    domandaScelta = questions[indiceRand]
+  } while (pulledQuestions.includes(domandaScelta))
+  pulledQuestions.push(domandaScelta)
+  return domandaScelta
+}
 
 // Function to generate a random array to mix the possible answers' positions each time.
 
 const getRandomQuestionOrder = (questionObj) => {
-  const { type } = questionObj;
+  const { type } = questionObj
   if (type === "multiple") {
-    const positions = [0, 1, 2, 3];
-    positions.sort(() => Math.random() - 0.5);
+    const positions = [0, 1, 2, 3]
+    positions.sort(() => Math.random() - 0.5)
 
-    return positions;
+    return positions
   } else {
-    const positions = [0, 1];
-    positions.sort(() => Math.random() - 0.5);
+    const positions = [0, 1]
+    positions.sort(() => Math.random() - 0.5)
 
-    return positions;
+    return positions
   }
-};
+}
 
 // Funzione to display the current question. It creates button elements which on their onclick attribute, fire the checkAnswer function to validate the answer.
 
 const displayNextQuestion = (questionObj) => {
-  buttonSpace.innerHTML = "";
+  buttonSpace.innerHTML = ""
   if (questionNumber >= 10) {
     questionTitle.innerText = `The Quiz is over.\n
-                                    Go to your results!`;
+                                    Go to your results!`
     buttonSpace.innerHTML = `
         <a href="./result.html">
           <button class="button-start">Results</button>
         </a>
-    `;
-    return;
+    `
+    return
   }
-  const { question, correct_answer, incorrect_answers } = questionObj;
-  const allAnswers = [...incorrect_answers, correct_answer];
-  questionTitle.innerText = `${question}`;
-  questionNumber++;
-  currentQuestionNum.innerText = `QUESTION ${questionNumber}`;
+  const { question, correct_answer, incorrect_answers } = questionObj
+  const allAnswers = [...incorrect_answers, correct_answer]
+  questionTitle.innerText = `${question}`
+  questionNumber++
+  currentQuestionNum.innerText = `QUESTION ${questionNumber}`
   getRandomQuestionOrder(questionObj).forEach((index) => {
     buttonSpace.innerHTML += `
     <button class="button-answer">
         ${allAnswers[index]}
     </button>
-    `;
-  });
-  const buttonAnswers = document.querySelectorAll(".button-answer");
+    `
+  })
+  const buttonAnswers = document.querySelectorAll(".button-answer")
   buttonAnswers.forEach((button) =>
     button.addEventListener("click", (e) => checkAnswer(e, questionObj)),
-  );
-};
+  )
+
+  // logica timer
+
+  const timer = document.querySelector(".timer")
+  const progress = document.querySelector(".progress")
+
+  let totalSec = 10
+  let timeLeft = totalSec
+
+  const circumference = 2 * Math.PI * 90
+  progress.style.strokeDasharray = circumference
+
+  // updatefunction
+  const updateTimer = function () {
+    timer.textContent = timeLeft
+    const offset = circumference - (timeLeft / totalSec) * circumference
+
+    progress.style.strokeDashoffset = offset
+
+    if (timeLeft > 0) {
+      timeLeft--
+      setTimeout(updateTimer, 1000)
+    }
+  }
+  updateTimer()
+}
 
 // Function to check if the answer is correct. If it is, updates score by 1.
 
 const checkAnswer = (e, questionObj) => {
-  const { correct_answer } = questionObj;
+  const { correct_answer } = questionObj
   if (e.target.innerText === correct_answer) {
-    score++;
+    score++
   }
-  const nextQuestionObj = randomQuestionExtraction();
-  displayNextQuestion(nextQuestionObj);
-};
+  const nextQuestionObj = randomQuestionExtraction()
+  displayNextQuestion(nextQuestionObj)
+}
 
 // Function to display the results
 
-const displayResults = () => {};
+const displayResults = () => {}
 
 window.addEventListener("load", () =>
   displayNextQuestion(randomQuestionExtraction()),
-);
+)
+
+// logica timer
+
+const timer = document.querySelector(".timer")
+const progress = document.querySelector(".progress")
+
+let totalSec = 10
+let timeLeft = totalSec
+
+const circumference = 2 * Math.PI * 90
+progress.style.strokeDasharray = circumference
+
+// updatefunction
+const updateTimer = function () {
+  timer.textContent = timeLeft
+  const offset = circumference - (timeLeft / totalSec) * circumference
+
+  progress.style.strokeDashoffset = offset
+
+  if (timeLeft > 0) {
+    timeLeft--
+    setTimeout(updateTimer, 1000)
+  }
+}
+updateTimer()

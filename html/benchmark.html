@@ -14,12 +14,18 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body id="benchmark-body">
     <header>
       <section class="up-logo">
         <img src="../assets/epicode_logo.png" alt="epicode_logo" />
       </section>
-      <div id="timer">times</div>
+      <div class="circle">
+        <svg>
+          <circle class="circular" cx="100" cy="100" r="90"></circle>
+          <circle class="progress" cx="100" cy="100" r="90"></circle>
+        </svg>
+        <div class="timer"><span>SECONDS</span> 10 <span>REMAINING</span></div>
+      </div>
     </header>
     <main>
       <article id="question-diplay">
