@@ -7,7 +7,7 @@ const buttonAnswers = document.querySelectorAll(".button-answer")
 
 // Global Variables Delcaration
 
-let score = 0 // Dinamically updated score that will be displayed in the results page.
+let score = parseInt(sessionStorage.getItem("score")) || 0 // Dinamically updated score that will be displayed in the results page.
 let questionNumber = 0 // Number of the question the user is facing.
 const questions = [
   {
@@ -146,6 +146,7 @@ const getRandomQuestionOrder = (questionObj) => {
 const displayNextQuestion = (questionObj) => {
   buttonSpace.innerHTML = ""
   if (questionNumber >= 10) {
+    sessionStorage.setItem("score", score)
     questionTitle.innerText = `The Quiz is over.\n
                                     Go to your results!`
     buttonSpace.innerHTML = `
