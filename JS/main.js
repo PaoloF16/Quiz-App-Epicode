@@ -7,7 +7,7 @@ const buttonAnswers = document.querySelectorAll(".button-answer");
 
 // Global Variables Delcaration
 
-let score = 0; // Dinamically updated score that will be displayed in the results page.
+let score = parseInt(sessionStorage.getItem("score")) || 0; // Dinamically updated score that will be displayed in the results page.
 let questionNumber = 0; // Number of the question the user is facing.
 const questions = [
   {
@@ -146,10 +146,11 @@ const getRandomQuestionOrder = (questionObj) => {
 const displayNextQuestion = (questionObj) => {
   buttonSpace.innerHTML = "";
   if (questionNumber >= 10) {
+    sessionStorage.setItem("score", score);
     questionTitle.innerText = `The Quiz is over.\n
                                     Go to your results!`;
     buttonSpace.innerHTML = `
-        <a href="./result.html">
+        <a href="./results.html">
           <button class="button-start">Results</button>
         </a>
     `;
@@ -186,8 +187,25 @@ const checkAnswer = (e, questionObj) => {
 
 // Function to display the results
 
-const displayResults = () => {};
+const displayResults = () => {
+  const correctPercentageP = document.getElementById(
+    "percentage-correct-answers",
+  );
+  const wrongPercentageP = document.getElementById("percentage-wrong-answers");
+  const correctAnswersP = document.getElementById("number-correct-answers");
+  const wrongAnswersP = document.getElementById("number-wrong-answers");
+  correctPercentageP.innerText = `${score.toFixed(1) * 10}%`;
+  wrongPercentageP.innerText = `${(10 - score).toFixed(1) * 10}%`;
+  correctAnswersP.innerText = `${score}/10`;
+  wrongAnswersP.innerText = `${10 - score}/10`;
+};
 
-window.addEventListener("load", () =>
-  displayNextQuestion(randomQuestionExtraction()),
-);
+window.addEventListener("load", () => {
+  if (document.getElementById("benchmark-body")) {
+    displayNextQuestion(randomQuestionExtraction());
+    return;
+  } else if (document.getElementById("results-body")) {
+    displayResults();
+    return;
+  }
+});
