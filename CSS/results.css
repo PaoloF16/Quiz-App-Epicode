@@ -169,5 +169,29 @@ canvas {
 }
 
 .button-rate-us .button-start {
-  margin-top: 150px;
+  margin-top: 15px;
+}
+
+#check-section {
+  padding: 90px 50px 100px 50px;
+  text-align: center;
+  padding-bottom: 0;
+}
+
+.answer-check {
+  margin-bottom: 30px;
+  font-size: 1.3em;
+}
+
+.answer-check p:nth-of-type(1) {
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.button-rate-us {
+  margin-top: 6%;
+}
+
+.hidden {
+  display: none;
 }

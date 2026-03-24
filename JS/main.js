@@ -158,16 +158,22 @@ const startTimer = () => {
 
   const circumference = 2 * Math.PI * 90;
   progress.style.strokeDasharray = circumference;
+  timer.classList.add("timer-text");
 
   clearInterval(timerInterval);
 
-  timer.textContent = timeLeft;
+  timer.innerHTML = `
+    <p class="timer-words">SECONDS</p>
+    <p class="timer-nums">${timeLeft}</p>
+    <p class="timer-words">REMAINING</p>`;
   progress.style.strokeDashoffset = 0;
 
   timerInterval = setInterval(() => {
     --timeLeft;
-    timer.textContent = " remaining " + timeLeft + "seconds";
-    timer.classList.add("timer-text");
+    timer.innerHTML = `
+    <p class="timer-words">SECONDS</p>
+    <p class="timer-nums">${timeLeft}</p>
+    <p class="timer-words">REMAINING</p>`;
 
     const offset = circumference - (timeLeft / totalSec) * circumference;
     progress.style.strokeDashoffset = offset;
@@ -214,7 +220,7 @@ const displayNextQuestion = (questionObj) => {
   getRandomQuestionOrder(questionObj).forEach((index) => {
     buttonSpace.innerHTML += `
     <button class="button-answer">
-        ${allAnswers[index]}
+    ${allAnswers[index]}
     </button>
     `;
   });
@@ -248,7 +254,8 @@ const checkAnswer = (e, questionObj) => {
     usedAnswersArr.push(`Your answer: ${correct_answer} ✅`);
   } else {
     usedAnswersArr.push(
-      `Your answer: ${e.target.innerText} ❌<br>Correct answer: ${correct_answer} ✅`,
+      `Your answer: ${e.target.innerText} ❌
+      Correct answer: ${correct_answer} ✅`,
     );
   }
   usedQuestionsArr.push(question);
@@ -292,16 +299,28 @@ window.addEventListener("load", () => {
     const checkButton = document.getElementById("button-check");
     const checkSection = document.getElementById("check-section");
     displayResults();
+
+    let answersVisible = false;
+
     checkButton.addEventListener("click", () => {
-      checkButton.setAttribute("disabled", "true");
-      usedQuestionsArr.forEach((ques, i) => {
-        checkSection.innerHTML += `
-    <div class="answer-check">  
-      <p>${ques}</p>
-      <p>${usedAnswersArr[i]}</p>
-    </div> 
-       `;
-      });
+      if (!answersVisible) {
+        checkSection.innerHTML = "";
+
+        usedQuestionsArr.forEach((ques, i) => {
+          checkSection.innerHTML += `
+        <div class="answer-check">  
+          <p>${ques}</p>
+          <p>${usedAnswersArr[i]}</p>
+        </div>`;
+        });
+        checkButton.innerText = "HIDE ANSWERS";
+        checkSection.classList.remove("hidden");
+        answersVisible = true;
+      } else {
+        checkSection.classList.toggle("hidden");
+        checkButton.innerText = "CHECK YOUR ANSWERS";
+        answersVisible = false;
+      }
     });
     sessionStorage.clear();
     return;
