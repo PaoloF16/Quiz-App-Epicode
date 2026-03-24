@@ -171,3 +171,18 @@ canvas {
 .button-rate-us .button-start {
   margin-top: 150px;
 }
+
+#check-section {
+  padding: 90px 50px 100px 50px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.answer-check {
+  margin-bottom: 30px;
+  font-size: 1.3em;
+}
+
+.answer-check p {
+  margin-bottom: 16px;
+}

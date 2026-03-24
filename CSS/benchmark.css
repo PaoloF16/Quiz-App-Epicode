@@ -132,3 +132,15 @@ circle {
   font-size: 1.5em;
   color: white;
 }
+
+.result-chart {
+  margin-bottom: 100px;
+}
+
+#check-section {
+  margin: 30px auto;
+}
+
+.answer-check {
+  font-size: 10em;
+}
