@@ -1,6 +1,8 @@
 header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 40px;
 }
 
 .question-num {
@@ -9,51 +11,102 @@ header {
 }
 
 #question-title {
-  font-size: 3em;
+  font-size: 4.2em;
+  line-height: 1.1;
   color: white;
   text-align: center;
+  font-weight: 300;
+  max-width: 900px;
+  margin: 70px auto 30px auto;
 }
 
 h6 {
   color: white;
-  font-size: 0.8em;
+  font-size: 1.8em;
   text-align: center;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin-top: 60px;
 }
 
 h6 span {
-  color: purple;
+  color: #ff00b8;
+}
+
+footer {
+  margin-top: auto;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.question-num {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.question-num span:last-child {
+  color: #ff00b8;
+  margin-left: 5px;
 }
 
 .button-answer {
-  width: 200px;
-  display: inline-block;
-  padding: 14px 28px;
+  width: 340px;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 28px;
   border-radius: 999px;
-  margin: 40px;
+  margin: 20px;
 
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  background-color: rgba(0, 0, 0, 0.1);
+  border: 3px solid rgba(255, 255, 255, 0.45);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.04);
 
   color: #ffffff;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 1.5em;
+  font-weight: 600;
   text-align: center;
 
   cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.button-answer:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #900080, #D20094);
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 0 20px rgba(255, 0, 200, 0.25),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.button-answer.active {
+  background: linear-gradient(90deg, #ff00b8, #b100ff);
+  border: 3px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 22px rgba(255, 0, 184, 0.45);
 }
 
 #button-space {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 50px;
+  justify-content: center;
+  gap: 10px 30px;
+  max-width: 900px;
+  margin: 50px auto 0 auto;
 }
 
 #question-display {
-  width: fit-content;
+  width: 100%;
   margin: 0 auto;
+  padding: 0 20px 40px;
 }
+
 
 /* timer */
 .circle {
@@ -77,6 +130,7 @@ circle {
 .circular {
   stroke: rgba(0, 0, 0, 0.3);
 }
+
 .progress {
   stroke: #00ffff;
   stroke-dasharray: 565;
@@ -98,7 +152,7 @@ circle {
   font-size: 0.4em;
 }
 
-.button-start > a > button {
+.button-start>a>button {
   grid-area: button;
   align-self: end;
   justify-self: end;
