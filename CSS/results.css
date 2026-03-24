@@ -158,8 +158,8 @@ article h4 {
 }
 
 canvas {
-  width: 500px !important;
-  height: 500px !important;
+  width: 400px !important;
+  height: 400px !important;
 }
 
 .result-chart {

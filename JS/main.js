@@ -309,8 +309,8 @@ const data = {
   datasets: [
     {
       data: [(10 - score).toFixed(1) * 10, score.toFixed(1) * 10],
-      backgroundColor: ["#ff6384", "#36a2eb"],
-      hoverOffset: 4,
+      backgroundColor: ["#D20094", "#00ffff"],
+      hoverOffset: 1,
     },
   ],
 }
@@ -319,6 +319,9 @@ const data = {
 const config = {
   type: "doughnut",
   data: data,
+  options: {
+    cutout: "70%",
+  },
 }
 
 // Render del grafico
