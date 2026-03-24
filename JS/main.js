@@ -265,3 +265,9 @@ const startTimer = () => {
     }
   }, 1000);
 };
+
+const formFeedback = getElementById("feedback-form");
+formFeedback.addEventListener("submit", function (e) {
+  e.preventDefault();
+  formFeedback.reset();
+});
