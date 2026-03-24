@@ -236,7 +236,7 @@ const startTimer = () => {
 
   timerInterval = setInterval(() => {
     --timeLeft
-    timer.textContent = timeLeft
+    timer.textContent = " remaining " + timeLeft + "seconds"
 
     const offset = circumference - (timeLeft / totalSec) * circumference
     progress.style.strokeDashoffset = offset
@@ -249,7 +249,7 @@ const startTimer = () => {
       setTimeout(() => {
         const nextQuestionObj = randomQuestionExtraction()
         displayNextQuestion(nextQuestionObj)
-      }, 200)
+      }, 20)
     }
   }, 1000)
 }
