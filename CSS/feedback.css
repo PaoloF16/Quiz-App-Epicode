@@ -61,3 +61,8 @@ main {
     0 0 18px rgba(0, 240, 255, 1),
     0 0 40px rgba(0, 240, 255, 0.6);
 }
+
+button a {
+  text-decoration: none;
+  color: inherit;
+}
