@@ -266,6 +266,33 @@ const startTimer = () => {
   }, 1000);
 };
 
+const stars = document.getElementsByClassName("star");
+const starVuota = "/assets/emptyStar.svg";
+const starPiena = "/assets/star.svg";
+
+for (let i = 0; i < stars.length; i++) {
+  stars[i].addEventListener("mouseenter", function () {
+    for (let j = 0; j < stars.length; j++) {
+      if (j <= i) {
+        stars[j].src = starPiena;
+      } else {
+        stars[j].src = starVuota;
+      }
+    }
+  });
+
+  stars[i].addEventListener("mouseleave", function () {
+    for (let k = 0; k < stars.length; k++) {
+      stars[k].src = starVuota;
+    }
+  });
+
+  stars[i].addEventListener("click", function () {
+    let voto = i + 1;
+    alert("Rating: " + voto);
+  });
+}
+
 const formFeedback = document.getElementById("feedback-form");
 
 formFeedback.addEventListener("submit", function (e) {
