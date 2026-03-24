@@ -322,9 +322,11 @@ const data = {
 const stars = document.getElementsByClassName("star");
 const starVuota = "/assets/emptyStar.svg";
 const starPiena = "/assets/star.svg";
+let votoStars = -1;
 
 for (let i = 0; i < stars.length; i++) {
   stars[i].addEventListener("mouseenter", function () {
+    if (votoStars !== -1) return;
     for (let j = 0; j < stars.length; j++) {
       if (j <= i) {
         stars[j].src = starPiena;
@@ -335,13 +337,25 @@ for (let i = 0; i < stars.length; i++) {
   });
 
   stars[i].addEventListener("mouseleave", function () {
+    if (votoStars !== -1) return;
+
     for (let k = 0; k < stars.length; k++) {
-      stars[k].src = starVuota;
+      if (k <= votoStars) {
+        stars[k].src = starPiena;
+      } else {
+        stars[k].src = starVuota;
+      }
     }
   });
 
   stars[i].addEventListener("click", function () {
+    if (votoStars !== -1) return;
+
+    votoStars = i;
     let voto = i + 1;
+    for (let s = 0; s < stars.length; s++) {
+      stars[s].classList.remove("can-hover");
+    }
     alert("Rating: " + voto);
   });
 }
@@ -367,4 +381,9 @@ formFeedback.addEventListener("submit", function (e) {
   console.log("Feedback ricevuto:", feedbackValue);
   alert("Grazie! Il tuo feedback è stato registrato.");
   formFeedback.reset();
+
+  votoStars = -1;
+  for (let s = 0; s < stars.length; s++) {
+    stars[s].src = starVuota;
+  }
 });

@@ -73,6 +73,12 @@ button a {
   cursor: pointer;
   transition: transform 0.5s;
 }
-.star:hover {
-  transform: scale(1.5);
+
+.star.can-hover:hover {
+  cursor: pointer;
+  transform: scale(1.4);
+}
+
+.stars-container .star {
+  cursor: default;
 }
