@@ -50,7 +50,7 @@ main {
   margin: 0 0 10px 0;
   font-size: 1.7rem;
   color: #ff00b7;
-  font-weight:800;
+  font-weight: 800;
 }
 
 .subtitle p {
@@ -103,7 +103,7 @@ main {
   appearance: none;
   -webkit-appearance: none;
   width: 2vw;
-  height:2vw;
+  height: 2vw;
   border: 3px solid #ffffff;
   background: transparent;
   cursor: pointer;
@@ -157,7 +157,7 @@ main {
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
-    padding: 1vw;
+  padding: 1vw;
 }
 
 .button-start button:hover {

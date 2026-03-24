@@ -75,13 +75,13 @@ circle {
 }
 
 .circular {
-  stroke: #333;
+  stroke: rgba(0, 0, 0, 0.3);
 }
 .progress {
-  stroke: red;
+  stroke: #00ffff;
   stroke-dasharray: 565;
   stroke-dashoffset: 565;
-  transition: stroke-dashoffset 0.2s linear;
+  transition: stroke-dashoffset 1s linear;
 }
 
 .timer {
