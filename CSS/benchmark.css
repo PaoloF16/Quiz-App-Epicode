@@ -11,12 +11,14 @@ header {
 }
 
 #question-title {
-  font-size: 4.2em;
+  width: 900px;
+  height: 400px;
+
+  font-size: 4.2rem;
   line-height: 1.1;
   color: white;
   text-align: center;
   font-weight: 300;
-  max-width: 900px;
   margin: 70px auto 30px auto;
 }
 
