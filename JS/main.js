@@ -266,8 +266,12 @@ const startTimer = () => {
   }, 1000);
 };
 
-const formFeedback = getElementById("feedback-form");
+const formFeedback = document.getElementById("feedback-form");
+
 formFeedback.addEventListener("submit", function (e) {
   e.preventDefault();
+  const feedbackValue = document.getElementById("feedback").value;
+  console.log("Feedback ricevuto:", feedbackValue);
+  alert("Grazie! Il tuo feedback è stato registrato.");
   formFeedback.reset();
 });
