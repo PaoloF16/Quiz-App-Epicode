@@ -247,3 +247,12 @@ main {
     min-width: unset;
   }
 }
+
+#button-check {
+  margin: 30px auto;
+}
+
+.button-rate-us {
+  display: inline-block;
+  margin: 121px auto;
+}

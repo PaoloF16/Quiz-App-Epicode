@@ -203,7 +203,7 @@ const displayResults = () => {
   const wrongAnswersP = document.getElementById("number-wrong-answers")
   correctPercentageP.innerText = `${score.toFixed(1) * 10}%`
   wrongPercentageP.innerText = `${(10 - score).toFixed(1) * 10}%`
-  correctAnswersP.innerText = `${score}/10questions`
+  correctAnswersP.innerText = `${score}/10 questions`
   wrongAnswersP.innerText = `${10 - score}/10 questions`
   if (score < 6) {
     resultMessage.innerHTML = `
@@ -264,3 +264,51 @@ const startTimer = () => {
     }
   }, 1000)
 }
+
+// 1. Configurazione dei dati
+const data = {
+  datasets: [
+    {
+      label: "Mio Dataset",
+      data: [(10 - score).toFixed(1) * 10, score.toFixed(1) * 10],
+      backgroundColor: ["#ff6384", "#36a2eb"],
+      hoverOffset: 4,
+    },
+  ],
+}
+
+// 2. Plugin personalizzato per il testo centrale
+const centerTextPlugin = {
+  id: "result-message",
+  beforeDraw(chart) {
+    const {
+      ctx,
+      chartArea: { top, width, height },
+    } = chart
+    ctx.save()
+
+    // Configurazione font
+    ctx.font = "bold 20px Arial"
+    ctx.fillStyle = "white"
+    ctx.textAlign = "center"
+    ctx.textBaseline = "middle"
+
+    // Testo e posizionamento
+    const text = ""
+    const x = width / 2
+    const y = height / 2 + top
+
+    ctx.fillText(text, x, y)
+    ctx.restore()
+  },
+}
+
+// 3. Inizializzazione del grafico con il plugin
+const config = {
+  type: "doughnut",
+  data: data,
+  plugins: [centerTextPlugin], // Registro del plugin
+}
+
+// Render del grafico
+const myChart = new Chart(document.getElementById("myDonutChart"), config)
