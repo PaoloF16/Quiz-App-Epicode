@@ -241,7 +241,7 @@ const checkAnswer = (e, questionObj) => {
     console.log(usedAnswersArr, usedQuestionsArr)
     return
   }
-  if (e.target.innertext && e.target.innerText === correct_answer) {
+  if (e.target.innerText && e.target.innerText === correct_answer) {
     score++
     usedAnswersArr.push(`${correct_answer} ✅`)
   } else {
@@ -307,7 +307,6 @@ window.addEventListener("load", () => {
 const data = {
   datasets: [
     {
-      label: "Mio Dataset",
       data: [(10 - score).toFixed(1) * 10, score.toFixed(1) * 10],
       backgroundColor: ["#ff6384", "#36a2eb"],
       hoverOffset: 4,
@@ -315,37 +314,10 @@ const data = {
   ],
 }
 
-// 2. Plugin personalizzato per il testo centrale
-const centerTextPlugin = {
-  id: "result-message",
-  beforeDraw(chart) {
-    const {
-      ctx,
-      chartArea: { top, width, height },
-    } = chart
-    ctx.save()
-
-    // Configurazione font
-    ctx.font = "bold 20px Arial"
-    ctx.fillStyle = "white"
-    ctx.textAlign = "center"
-    ctx.textBaseline = "middle"
-
-    // Testo e posizionamento
-    const text = ""
-    const x = width / 2
-    const y = height / 2 + top
-
-    ctx.fillText(text, x, y)
-    ctx.restore()
-  },
-}
-
 // 3. Inizializzazione del grafico con il plugin
 const config = {
   type: "doughnut",
   data: data,
-  plugins: [centerTextPlugin], // Registro del plugin
 }
 
 // Render del grafico
