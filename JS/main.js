@@ -167,6 +167,7 @@ const startTimer = () => {
   timerInterval = setInterval(() => {
     --timeLeft;
     timer.textContent = " remaining " + timeLeft + "seconds";
+    timer.classList.add("timer-text");
 
     const offset = circumference - (timeLeft / totalSec) * circumference;
     progress.style.strokeDashoffset = offset;
