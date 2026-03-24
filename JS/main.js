@@ -197,6 +197,7 @@ const displayResults = () => {
   const correctPercentageP = document.getElementById(
     "percentage-correct-answers",
   )
+  const resultMessage = document.getElementById("result-message")
   const wrongPercentageP = document.getElementById("percentage-wrong-answers")
   const correctAnswersP = document.getElementById("number-correct-answers")
   const wrongAnswersP = document.getElementById("number-wrong-answers")
@@ -204,6 +205,16 @@ const displayResults = () => {
   wrongPercentageP.innerText = `${(10 - score).toFixed(1) * 10}%`
   correctAnswersP.innerText = `${score}/10questions`
   wrongAnswersP.innerText = `${10 - score}/10 questions`
+  if (score < 6) {
+    resultMessage.innerHTML = `
+    <h4>We're sorry!</h4>
+    <p class="youPass">You didn't pass the exam this time.</p>
+    <div class="certificate">
+      <p>You can try again later!</p>
+      <p>Check your email (including promotion / spam folder)</p>
+    </div>
+    `
+  }
 }
 
 window.addEventListener("load", () => {
