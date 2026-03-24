@@ -148,6 +148,43 @@ const getRandomQuestionOrder = (questionObj) => {
   }
 };
 
+// logica timer
+let timerInterval = null;
+
+const startTimer = () => {
+  const timer = document.querySelector(".timer");
+  const progress = document.querySelector(".progress");
+
+  let totalSec = 20;
+  let timeLeft = totalSec;
+
+  const circumference = 2 * Math.PI * 90;
+  progress.style.strokeDasharray = circumference;
+
+  clearInterval(timerInterval);
+
+  timer.textContent = timeLeft;
+  progress.style.strokeDashoffset = 0;
+
+  timerInterval = setInterval(() => {
+    --timeLeft;
+    timer.textContent = " remaining " + timeLeft + "seconds";
+
+    const offset = circumference - (timeLeft / totalSec) * circumference;
+    progress.style.strokeDashoffset = offset;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+
+      progress.style.strokeDashoffset = circumference;
+
+      setTimeout(() => {
+        checkAnswer(null, currentQuestion);
+      }, 20);
+    }
+  }, 1000);
+};
+
 // Funzione to display the current question. It creates button elements which on their onclick attribute, fire the checkAnswer function to validate the answer.
 
 const displayNextQuestion = (questionObj) => {
@@ -253,59 +290,21 @@ window.addEventListener("load", () => {
     return;
   } else if (document.getElementById("results-body")) {
     displayResults();
-    sessionStorage.clear();
-    return;
-  }
-});
-
-checkButton.addEventListener("click", () => {
-  checkButton.setAttribute("disabled", "true");
-  usedQuestionsArr.forEach((ques, i) => {
-    checkSection.innerHTML += `
+    checkButton.addEventListener("click", () => {
+      checkButton.setAttribute("disabled", "true");
+      usedQuestionsArr.forEach((ques, i) => {
+        checkSection.innerHTML += `
     <div class="answer-check">  
       <p>${ques}</p>
       <p>${usedAnswersArr[i]}</p>
     </div>  
     `;
-  });
+      });
+    });
+    sessionStorage.clear();
+    return;
+  }
 });
-
-// logica timer
-let timerInterval = null;
-
-const startTimer = () => {
-  const timer = document.querySelector(".timer");
-  const progress = document.querySelector(".progress");
-
-  let totalSec = 20;
-  let timeLeft = totalSec;
-
-  const circumference = 2 * Math.PI * 90;
-  progress.style.strokeDasharray = circumference;
-
-  clearInterval(timerInterval);
-
-  timer.textContent = timeLeft;
-  progress.style.strokeDashoffset = 0;
-
-  timerInterval = setInterval(() => {
-    --timeLeft;
-    timer.textContent = " remaining " + timeLeft + "seconds";
-
-    const offset = circumference - (timeLeft / totalSec) * circumference;
-    progress.style.strokeDashoffset = offset;
-
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-
-      progress.style.strokeDashoffset = circumference;
-
-      setTimeout(() => {
-        checkAnswer(null, currentQuestion);
-      }, 20);
-    }
-  }, 1000);
-};
 
 const formFeedback = document.getElementById("feedback-form");
 
