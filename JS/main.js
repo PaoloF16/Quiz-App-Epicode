@@ -4,11 +4,18 @@ const questionTitle = document.getElementById("question-title");
 const buttonSpace = document.getElementById("button-space");
 const currentQuestionNum = document.getElementById("question-num");
 const buttonAnswers = document.querySelectorAll(".button-answer");
+const checkButton = document.getElementById("check-button");
+const checkSection = document.getElementById("check-section");
 
 // Global Variables Delcaration
 
 let score = parseInt(sessionStorage.getItem("score")) || 0; // Dinamically updated score that will be displayed in the results page.
 let questionNumber = 0; // Number of the question the user is facing.
+const usedQuestionsArr =
+  JSON.parse(sessionStorage.getItem("usedQuestionsArr")) || [];
+const usedAnswersArr =
+  JSON.parse(sessionStorage.getItem("usedAnswersArr")) || [];
+let currentQuestion = {};
 const questions = [
   {
     category: "Science: Computers",
@@ -144,9 +151,15 @@ const getRandomQuestionOrder = (questionObj) => {
 // Funzione to display the current question. It creates button elements which on their onclick attribute, fire the checkAnswer function to validate the answer.
 
 const displayNextQuestion = (questionObj) => {
+  currentQuestion = questionObj;
   buttonSpace.innerHTML = "";
   if (questionNumber >= 10) {
     sessionStorage.setItem("score", score);
+    sessionStorage.setItem("usedAnswersArr", JSON.stringify(usedAnswersArr));
+    sessionStorage.setItem(
+      "usedQuestionsArr",
+      JSON.stringify(usedQuestionsArr),
+    );
     questionTitle.innerText = `The Quiz is over.\n
     Go to your results!`;
     buttonSpace.innerHTML = `
@@ -181,14 +194,31 @@ const displayNextQuestion = (questionObj) => {
 const checkAnswer = (e, questionObj) => {
   clearInterval(timerInterval);
 
-  const { correct_answer } = questionObj;
-
-  if (e.target.innerText === correct_answer) {
-    score++;
+  const { question, correct_answer } = questionObj;
+  if (!e || !e.target) {
+    usedAnswersArr.push(
+      `You didn't answer the question ❌
+      ${correct_answer} ✅`,
+    );
+    usedQuestionsArr.push(question);
+    const nextQuestionObj = randomQuestionExtraction();
+    currentQuestion = nextQuestionObj;
+    displayNextQuestion(nextQuestionObj);
+    console.log(usedAnswersArr, usedQuestionsArr);
+    return;
   }
-
+  if (e.target.innertext && e.target.innerText === correct_answer) {
+    score++;
+    usedAnswersArr.push(`${correct_answer} ✅`);
+  } else {
+    usedAnswersArr.push(`${e.target.innerText} ❌
+      ${correct_answer} ✅`);
+  }
+  usedQuestionsArr.push(question);
   const nextQuestionObj = randomQuestionExtraction();
+  currentQuestion = nextQuestionObj;
   displayNextQuestion(nextQuestionObj);
+  console.log(usedAnswersArr, usedQuestionsArr);
 };
 
 // Function to display the results
@@ -223,9 +253,21 @@ window.addEventListener("load", () => {
     return;
   } else if (document.getElementById("results-body")) {
     displayResults();
-    sessionStorage.removeItem("score");
+    sessionStorage.clear();
     return;
   }
+});
+
+checkButton.addEventListener("click", () => {
+  checkButton.setAttribute("disabled", "true");
+  usedQuestionsArr.forEach((ques, i) => {
+    checkSection.innerHTML += `
+    <div class="answer-check">  
+      <p>${ques}</p>
+      <p>${usedAnswersArr[i]}</p>
+    </div>  
+    `;
+  });
 });
 
 // logica timer
@@ -259,8 +301,7 @@ const startTimer = () => {
       progress.style.strokeDashoffset = circumference;
 
       setTimeout(() => {
-        const nextQuestionObj = randomQuestionExtraction();
-        displayNextQuestion(nextQuestionObj);
+        checkAnswer(null, currentQuestion);
       }, 20);
     }
   }, 1000);
