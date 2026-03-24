@@ -295,6 +295,8 @@ const displayResults = () => {
 const resetForm = (e) => {
   e.preventDefault();
   const form = document.getElementById("feedback-form");
+  submitButton.setAttribute("disabled", "true");
+  submitButton.style.cursor = "not-allowed";
   form.reset();
 };
 
