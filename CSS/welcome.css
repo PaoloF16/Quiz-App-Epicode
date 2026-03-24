@@ -1,5 +1,4 @@
 main {
-  
   padding: clamp(20px, 2vw, 32px) clamp(20px, 7vw, 120px) clamp(28px, 4vw, 64px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -13,22 +12,25 @@ main {
   min-height: min(620px, 100dvh);
   align-content: start;
 }
+
 main {
-  max-width: 1200px; /* o 1280px, 1440px */
+  max-width: 1200px;
+  /* o 1280px, 1440px */
   margin: 0 auto;
 }
+
 /* -------------------------
    TITLE
 ------------------------- */
 .title {
   grid-area: title;
-  margin-top: clamp(24px, 6vw, 96px);
+  margin-top: clamp(12px, 0.5vw, 80px);
   min-width: 0;
 }
 
 .title h1 {
   margin: 0;
-  font-size: clamp(2.2rem, 7vw, 5rem);
+  font-size: clamp(2.2rem, 5vw, 5rem);
   line-height: 0.95;
   font-weight: 300;
   color: #f0f0f0;
@@ -53,17 +55,17 @@ main {
 
 .subtitle h2 {
   margin: 0 0 10px 0;
-  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-size: clamp(1.1rem, 2vw, 1.7rem);
   color: #ff00b7;
   font-weight: 800;
 }
 
 .subtitle p {
   margin: 0;
-  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-size: clamp(1rem, 1vw, 1.35rem);
   line-height: 1.5;
   color: #f3f3f3;
-  max-width: min(40vw, 780px);
+  max-width: min(40vw, 1000px);
   font-weight: 500;
   text-wrap: pretty;
 }
@@ -73,7 +75,7 @@ main {
 ------------------------- */
 .list {
   grid-area: list;
-  max-width: min(40vw, 800px);
+  max-width: min(40vw, 500px);
   padding: clamp(18px, 3vw, 42px);
   min-width: 0;
 }
@@ -84,11 +86,12 @@ main {
 }
 
 .list li {
-  margin-bottom: clamp(10px, 1vw, 16px);
+  margin-bottom: clamp(px, 1vw, 16px);
   font-size: clamp(0.98rem, 1.5vw, 1.1rem);
   font-weight: 500;
   line-height: 1.5;
-  padding-left: 0.5vw; /* corregido */
+  padding-left: 0.5vw;
+  /* corregido */
   color: #f5f5f5;
   list-style-type: disc;
 }
@@ -154,6 +157,7 @@ main {
   grid-area: button;
   align-self: end;
   justify-self: end;
+  margin-right: clamp(20px, 6vw, 120px);
 }
 
 .button-start button {

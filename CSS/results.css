@@ -1,6 +1,5 @@
 #results-body {
   font-family: "Inter", sans-serif;
-  max-height: 100vh;
 }
 
 .up-logo img {
@@ -30,17 +29,18 @@ h3 {
 
 #main-results-section {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin-top: 10%;
   color: white;
 }
 
-#main-results-section > div {
+/* #main-results-section > div {
   text-align: center;
   width: 100%;
   margin-top: 8%;
-}
+} */
 
 #percentage-correct-answers,
 #percentage-wrong-answers {
@@ -50,9 +50,9 @@ h3 {
 }
 
 .button-start {
-  grid-area: button;
-  align-self: end;
-  justify-self: end;
+  display: flex;
+  justify-content: center;
+  margin: 30px;
 }
 
 .button-start button {
@@ -113,6 +113,24 @@ article h4 {
   margin: 10px;
 }
 
+.chart-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#result-message {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  text-align: center;
+}
+
 #number-wrong-answers {
   font-size: 1em;
   margin: 10px;
@@ -133,4 +151,23 @@ article h4 {
 .rightAnswer p {
   font-size: 2.8em;
   text-align: center;
+}
+
+#myDonutChart {
+}
+
+canvas {
+  width: 400px !important;
+  height: 400px !important;
+}
+
+.result-chart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.button-rate-us .button-start {
+  margin-top: 150px;
 }

@@ -9,6 +9,11 @@ const buttonAnswers = document.querySelectorAll(".button-answer");
 
 let score = parseInt(sessionStorage.getItem("score")) || 0; // Dinamically updated score that will be displayed in the results page.
 let questionNumber = 0; // Number of the question the user is facing.
+const usedQuestionsArr =
+  JSON.parse(sessionStorage.getItem("usedQuestionsArr")) || [];
+const usedAnswersArr =
+  JSON.parse(sessionStorage.getItem("usedAnswersArr")) || [];
+let currentQuestion = {};
 const questions = [
   {
     category: "Science: Computers",
@@ -141,12 +146,56 @@ const getRandomQuestionOrder = (questionObj) => {
   }
 };
 
+// logica timer
+let timerInterval = null;
+
+const startTimer = () => {
+  const timer = document.querySelector(".timer");
+  const progress = document.querySelector(".progress");
+
+  let totalSec = 20;
+  let timeLeft = totalSec;
+
+  const circumference = 2 * Math.PI * 90;
+  progress.style.strokeDasharray = circumference;
+
+  clearInterval(timerInterval);
+
+  timer.textContent = timeLeft;
+  progress.style.strokeDashoffset = 0;
+
+  timerInterval = setInterval(() => {
+    --timeLeft;
+    timer.textContent = " remaining " + timeLeft + "seconds";
+    timer.classList.add("timer-text");
+
+    const offset = circumference - (timeLeft / totalSec) * circumference;
+    progress.style.strokeDashoffset = offset;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+
+      progress.style.strokeDashoffset = circumference;
+
+      setTimeout(() => {
+        checkAnswer(null, currentQuestion);
+      }, 20);
+    }
+  }, 1000);
+};
+
 // Funzione to display the current question. It creates button elements which on their onclick attribute, fire the checkAnswer function to validate the answer.
 
 const displayNextQuestion = (questionObj) => {
+  currentQuestion = questionObj;
   buttonSpace.innerHTML = "";
   if (questionNumber >= 10) {
     sessionStorage.setItem("score", score);
+    sessionStorage.setItem("usedAnswersArr", JSON.stringify(usedAnswersArr));
+    sessionStorage.setItem(
+      "usedQuestionsArr",
+      JSON.stringify(usedQuestionsArr),
+    );
     questionTitle.innerText = `The Quiz is over.\n
     Go to your results!`;
     buttonSpace.innerHTML = `
@@ -181,14 +230,32 @@ const displayNextQuestion = (questionObj) => {
 const checkAnswer = (e, questionObj) => {
   clearInterval(timerInterval);
 
-  const { correct_answer } = questionObj;
-
-  if (e.target.innerText === correct_answer) {
-    score++;
+  const { question, correct_answer } = questionObj;
+  if (!e || !e.target) {
+    usedAnswersArr.push(
+      `You didn't answer the question ❌
+      ${correct_answer} ✅`,
+    );
+    usedQuestionsArr.push(question);
+    const nextQuestionObj = randomQuestionExtraction();
+    currentQuestion = nextQuestionObj;
+    displayNextQuestion(nextQuestionObj);
+    console.log(usedAnswersArr, usedQuestionsArr);
+    return;
   }
-
+  if (e.target.innerText && e.target.innerText === correct_answer) {
+    score++;
+    usedAnswersArr.push(`Your answer: ${correct_answer} ✅`);
+  } else {
+    usedAnswersArr.push(
+      `Your answer: ${e.target.innerText} ❌<br>Correct answer: ${correct_answer} ✅`,
+    );
+  }
+  usedQuestionsArr.push(question);
   const nextQuestionObj = randomQuestionExtraction();
+  currentQuestion = nextQuestionObj;
   displayNextQuestion(nextQuestionObj);
+  console.log(usedAnswersArr, usedQuestionsArr);
 };
 
 // Function to display the results
@@ -203,7 +270,7 @@ const displayResults = () => {
   const wrongAnswersP = document.getElementById("number-wrong-answers");
   correctPercentageP.innerText = `${score.toFixed(1) * 10}%`;
   wrongPercentageP.innerText = `${(10 - score).toFixed(1) * 10}%`;
-  correctAnswersP.innerText = `${score}/10questions`;
+  correctAnswersP.innerText = `${score}/10 questions`;
   wrongAnswersP.innerText = `${10 - score}/10 questions`;
   if (score < 6) {
     resultMessage.innerHTML = `
@@ -222,48 +289,34 @@ window.addEventListener("load", () => {
     displayNextQuestion(randomQuestionExtraction());
     return;
   } else if (document.getElementById("results-body")) {
+    const checkButton = document.getElementById("button-check");
+    const checkSection = document.getElementById("check-section");
     displayResults();
-    sessionStorage.removeItem("score");
+    checkButton.addEventListener("click", () => {
+      checkButton.setAttribute("disabled", "true");
+      usedQuestionsArr.forEach((ques, i) => {
+        checkSection.innerHTML += `
+    <div class="answer-check">  
+      <p>${ques}</p>
+      <p>${usedAnswersArr[i]}</p>
+    </div> 
+       `;
+      });
+    });
+    sessionStorage.clear();
     return;
   }
 });
 
-// logica timer
-let timerInterval = null;
-
-const startTimer = () => {
-  const timer = document.querySelector(".timer");
-  const progress = document.querySelector(".progress");
-
-  let totalSec = 20;
-  let timeLeft = totalSec;
-
-  const circumference = 2 * Math.PI * 90;
-  progress.style.strokeDasharray = circumference;
-
-  clearInterval(timerInterval);
-
-  timer.textContent = timeLeft;
-  progress.style.strokeDashoffset = 0;
-
-  timerInterval = setInterval(() => {
-    --timeLeft;
-    timer.textContent = " remaining " + timeLeft + "seconds";
-
-    const offset = circumference - (timeLeft / totalSec) * circumference;
-    progress.style.strokeDashoffset = offset;
-
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-
-      progress.style.strokeDashoffset = circumference;
-
-      setTimeout(() => {
-        const nextQuestionObj = randomQuestionExtraction();
-        displayNextQuestion(nextQuestionObj);
-      }, 20);
-    }
-  }, 1000);
+// 1. Configurazione dei dati
+const data = {
+  datasets: [
+    {
+      data: [(10 - score).toFixed(1) * 10, score.toFixed(1) * 10],
+      backgroundColor: ["#D20094", "#00ffff"],
+      hoverOffset: 1,
+    },
+  ],
 };
 
 const stars = document.getElementsByClassName("star");
@@ -292,6 +345,19 @@ for (let i = 0; i < stars.length; i++) {
     alert("Rating: " + voto);
   });
 }
+// 3. Inizializzazione del grafico con il plugin
+const config = {
+  type: "doughnut",
+  data: data,
+  options: {
+    cutout: "70%",
+  },
+};
+
+// Render del grafico
+const myChart = new Chart(document.getElementById("myDonutChart"), config);
+
+// form di feedback
 
 const formFeedback = document.getElementById("feedback-form");
 
