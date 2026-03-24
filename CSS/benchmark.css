@@ -132,3 +132,14 @@ circle {
   font-size: 1.5em;
   color: white;
 }
+
+.timer-words {
+  margin: 0;
+  font-weight: 400;
+  font-size: 0.7em;
+}
+
+.timer-nums {
+  margin: 0;
+  font-size: 2em;
+}
