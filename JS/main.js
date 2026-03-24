@@ -158,16 +158,22 @@ const startTimer = () => {
 
   const circumference = 2 * Math.PI * 90
   progress.style.strokeDasharray = circumference
+  timer.classList.add("timer-text")
 
   clearInterval(timerInterval)
 
-  timer.textContent = timeLeft
+  timer.innerHTML = `
+    <p class="timer-words">SECONDS</p>
+    <p class="timer-nums">${timeLeft}</p>
+    <p class="timer-words">REMAINING</p>`
   progress.style.strokeDashoffset = 0
 
   timerInterval = setInterval(() => {
     --timeLeft
-    timer.textContent = " remaining " + timeLeft + "seconds"
-    timer.classList.add("timer-text")
+    timer.innerHTML = `
+    <p class="timer-words">SECONDS</p>
+    <p class="timer-nums">${timeLeft}</p>
+    <p class="timer-words">REMAINING</p>`
 
     const offset = circumference - (timeLeft / totalSec) * circumference
     progress.style.strokeDashoffset = offset
@@ -211,7 +217,7 @@ const displayNextQuestion = (questionObj) => {
   getRandomQuestionOrder(questionObj).forEach((index) => {
     buttonSpace.innerHTML += `
     <button class="button-answer">
-        ${allAnswers[index]}
+    ${allAnswers[index]}
     </button>
     `
   })
