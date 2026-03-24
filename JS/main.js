@@ -4,8 +4,6 @@ const questionTitle = document.getElementById("question-title")
 const buttonSpace = document.getElementById("button-space")
 const currentQuestionNum = document.getElementById("question-num")
 const buttonAnswers = document.querySelectorAll(".button-answer")
-const checkButton = document.getElementById("check-button")
-const checkSection = document.getElementById("check-section")
 
 // Global Variables Delcaration
 
@@ -287,6 +285,8 @@ window.addEventListener("load", () => {
     displayNextQuestion(randomQuestionExtraction())
     return
   } else if (document.getElementById("results-body")) {
+    const checkButton = document.getElementById("button-check")
+    const checkSection = document.getElementById("check-section")
     displayResults()
     checkButton.addEventListener("click", () => {
       checkButton.setAttribute("disabled", "true")
