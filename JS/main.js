@@ -148,10 +148,10 @@ const displayNextQuestion = (questionObj) => {
   if (questionNumber >= 10) {
     sessionStorage.setItem("score", score);
     questionTitle.innerText = `The Quiz is over.\n
-                                    Go to your results!`;
+    Go to your results!`;
     buttonSpace.innerHTML = `
         <a href="../html/results.html">
-          <button>Results</button>
+        <button>Results</button>
         </a>
     `;
     buttonSpace.classList.add("button-start");
@@ -210,8 +210,8 @@ const displayResults = () => {
     <h4>We're sorry!</h4>
     <p class="youPass">You didn't pass the exam this time.</p>
     <div class="certificate">
-      <p>You can try again later!</p>
-      <p>Check your email (including promotion / spam folder)</p>
+    <p>You can try again later!</p>
+    <p>Check your email (including promotion / spam folder)</p>
     </div>
     `;
   }
@@ -223,6 +223,7 @@ window.addEventListener("load", () => {
     return;
   } else if (document.getElementById("results-body")) {
     displayResults();
+    sessionStorage.removeItem("score");
     return;
   }
 });
