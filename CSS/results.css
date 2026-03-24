@@ -96,6 +96,10 @@ article h4 {
   margin: 30px;
 }
 
+.certificate p {
+  font-size: 1.3em;
+}
+
 .youPass {
   color: aqua;
   font-size: 1.2em;

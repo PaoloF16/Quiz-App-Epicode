@@ -4,6 +4,7 @@ const questionTitle = document.getElementById("question-title");
 const buttonSpace = document.getElementById("button-space");
 const currentQuestionNum = document.getElementById("question-num");
 const buttonAnswers = document.querySelectorAll(".button-answer");
+const submitButton = document.getElementById("submit-button");
 
 // Global Variables Delcaration
 
@@ -254,7 +255,7 @@ const checkAnswer = (e, questionObj) => {
     usedAnswersArr.push(`Your answer: ${correct_answer} ✅`);
   } else {
     usedAnswersArr.push(
-      `Your answer: ${e.target.innerText} ❌
+      `Your answer: ${e.target.innerText} ❌ - 
       Correct answer: ${correct_answer} ✅`,
     );
   }
@@ -290,6 +291,16 @@ const displayResults = () => {
     `;
   }
 };
+
+const resetForm = (e) => {
+  e.preventDefault();
+  const form = document.getElementById("feedback-form");
+  form.reset();
+};
+
+if (submitButton) {
+  submitButton.addEventListener("click", (e) => resetForm(e));
+}
 
 window.addEventListener("load", () => {
   if (document.getElementById("benchmark-body")) {
