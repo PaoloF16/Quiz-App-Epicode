@@ -18,9 +18,9 @@
 
 <body id="welcome-body">
     <header>
-      <section class="up-logo">
-        <img src="../assets/epicode_logo.png" alt="epicode logo" />
-      </section>
+        <section class="up-logo">
+            <img src="../assets/epicode_logo.png" alt="epicode logo" />
+        </section>
     </header>
     <main>
         <section class="title">
@@ -30,7 +30,7 @@
             <h2> Instructions</h2>
             <p> We don't expect most engineers to know the answers to all of these questions, so don't worry if you're
                 unsure of a few of them.</p>
-            
+
         </section>
         <section>
             <section class="list">
@@ -41,18 +41,40 @@
                 </ul>
             </section>
         </section>
+        <section class="exam-options">
+            <div class="option-group">
+                <label for="difficulty">Difficulty</label>
+                <select id="difficulty" name="difficulty" required>
+
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+
+            <div class="option-group">
+                <label for="question-count">Number of questions</label>
+                <select id="question-count" name="question-count" required>
+
+                    <option value="5">5 questions</option>
+                    <option value="10">10 questions</option>
+                    <option value="15">15 questions</option>
+                    <option value="20">20 questions</option>
+                </select>
+            </div>
+        </section>
 
         <section class="terms-condition-button">
-                <form action="benchmark.html">
+            <form action="benchmark.html">
                 <input type="checkbox" id="term-condition" name="term-condition" required>
                 <label for="term-condition">
                     I promise to answer myself without help from anyone
                 </label>
-            </section>
+        </section>
 
-            <section class="button-start">
-                <a href="../html/benchmark.html"><button type="submit">Proceed</button></a>
-            </section>
+        <section class="button-start">
+            <a href="../html/benchmark.html"><button type="submit">Proceed</button></a>
+        </section>
         </form>
     </main>
     <footer></footer>
