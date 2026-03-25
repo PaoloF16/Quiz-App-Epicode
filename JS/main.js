@@ -1,19 +1,21 @@
 // DOM Elements Declarations
 
-const questionTitle = document.getElementById("question-title")
-const buttonSpace = document.getElementById("button-space")
-const currentQuestionNum = document.getElementById("question-num")
-const submitButton = document.getElementById("submit-button")
+const questionTitle = document.getElementById("question-title");
+const buttonSpace = document.getElementById("button-space");
+const currentQuestionNum = document.getElementById("question-num");
+const submitButton = document.getElementById("submit-button");
 
 // Global Variables Delcaration
 
-let score = parseInt(sessionStorage.getItem("score")) || 0 // Dinamically updated score that will be displayed in the results page.
-let questionNumber = 0 // Number of the question the user is facing.
+let score = parseInt(sessionStorage.getItem("score")) || 0; // Dinamically updated score that will be displayed in the results page.
+let questionNumber = 0; // Number of the question the user is facing.
 const usedQuestionsArr =
-  JSON.parse(sessionStorage.getItem("usedQuestionsArr")) || []
+  JSON.parse(sessionStorage.getItem("usedQuestionsArr")) || [];
 const usedAnswersArr =
-  JSON.parse(sessionStorage.getItem("usedAnswersArr")) || []
-let currentQuestion = {}
+  JSON.parse(sessionStorage.getItem("usedAnswersArr")) || [];
+const difficulty = sessionStorage.getItem("chosenDifficulty") || "easy";
+const numOfQuestions = sessionStorage.getItem("totalQuestions") || 10;
+let currentQuestion = {};
 const questionsEasy = [
   {
     category: "Science: Computers",
@@ -196,7 +198,7 @@ const questionsEasy = [
     correct_answer: ".js",
     incorrect_answers: [".html", ".css", ".java"],
   },
-]
+];
 
 const questionsMedium = [
   {
@@ -389,7 +391,7 @@ const questionsMedium = [
     correct_answer: "CSS",
     incorrect_answers: ["HTML", "Python", "SQL"],
   },
-]
+];
 
 const questionsHard = [
   {
@@ -595,181 +597,186 @@ const questionsHard = [
       "Events propagate from parent to child only",
     ],
   },
-]
+];
 
-const pulledQuestions = [] // Array domande già poste
-let arrQuestions = [] // Array dinamico che avrà le domande o Easy o Medium o Hard
+const pulledQuestions = []; // Array domande già poste
+let arrQuestions = []; // Array dinamico che avrà le domande o Easy o Medium o Hard
 
 const randomQuestionExtraction = function () {
   //funzione per randomizzare domande
   if (pulledQuestions.length === arrQuestions.length) {
     //se l'array pulled question è uguale a quello delle question vuol dire che le domande sono finite
-    return null
+    return null;
   }
-  let indiceRand
-  let domandaScelta
+  let randomIndex;
+  let selectedQuestion;
+
   do {
-    indiceRand = Math.floor(Math.random() * questionsEasy.length) //indice delle domande nell'array
-    domandaScelta = arrQuestions[indiceRand]
-  } while (pulledQuestions.includes(domandaScelta))
-  pulledQuestions.push(domandaScelta)
-  return domandaScelta
-}
+    randomIndex = Math.floor(Math.random() * arrQuestions.length);
+    selectedQuestion = arrQuestions[randomIndex];
+  } while (pulledQuestions.includes(selectedQuestion));
+
+  pulledQuestions.push(selectedQuestion);
+  return selectedQuestion;
+};
 
 // Function to generate a random array to mix the possible answers' positions each time.
 
 const getRandomQuestionOrder = (questionObj) => {
-  const { type } = questionObj
+  const { type } = questionObj;
   if (type === "multiple") {
-    const positions = [0, 1, 2, 3]
-    positions.sort(() => Math.random() - 0.5)
+    const positions = [0, 1, 2, 3];
+    positions.sort(() => Math.random() - 0.5);
 
-    return positions
+    return positions;
   } else {
-    const positions = [0, 1]
-    positions.sort(() => Math.random() - 0.5)
+    const positions = [0, 1];
+    positions.sort(() => Math.random() - 0.5);
 
-    return positions
+    return positions;
   }
-}
+};
 
 // logica timer
-let timerInterval = null
+let timerInterval = null;
 
 const startTimer = () => {
-  const timer = document.querySelector(".timer")
-  const progress = document.querySelector(".progress")
+  const timer = document.querySelector(".timer");
+  const progress = document.querySelector(".progress");
 
-  let totalSec = 20
-  let timeLeft = totalSec
+  let totalSec = 20;
+  let timeLeft = totalSec;
 
-  const circumference = 2 * Math.PI * 90
-  progress.style.strokeDasharray = circumference
-  timer.classList.add("timer-text")
+  const circumference = 2 * Math.PI * 90;
+  progress.style.strokeDasharray = circumference;
+  timer.classList.add("timer-text");
 
-  clearInterval(timerInterval)
+  clearInterval(timerInterval);
 
   timer.innerHTML = `
     <p class="timer-words">SECONDS</p>
     <p class="timer-nums">${timeLeft}</p>
-    <p class="timer-words">REMAINING</p>`
-  progress.style.strokeDashoffset = 0
+    <p class="timer-words">REMAINING</p>`;
+  progress.style.strokeDashoffset = 0;
 
   timerInterval = setInterval(() => {
-    --timeLeft
+    --timeLeft;
     timer.innerHTML = `
     <p class="timer-words">SECONDS</p>
     <p class="timer-nums">${timeLeft}</p>
-    <p class="timer-words">REMAINING</p>`
+    <p class="timer-words">REMAINING</p>`;
 
-    const offset = circumference - (timeLeft / totalSec) * circumference
-    progress.style.strokeDashoffset = offset
+    const offset = circumference - (timeLeft / totalSec) * circumference;
+    progress.style.strokeDashoffset = offset;
 
     if (timeLeft <= 0) {
-      clearInterval(timerInterval)
+      clearInterval(timerInterval);
 
-      progress.style.strokeDashoffset = circumference
+      progress.style.strokeDashoffset = circumference;
 
       setTimeout(() => {
-        checkAnswer(null, currentQuestion)
-      }, 20)
+        checkAnswer(null, currentQuestion);
+      }, 20);
     }
-  }, 1000)
-}
+  }, 1000);
+};
 
 // Funzione to display the current question. It creates button elements which on their onclick attribute, fire the checkAnswer function to validate the answer.
 
 const displayNextQuestion = (questionObj) => {
-  currentQuestion = questionObj
-  buttonSpace.innerHTML = ""
-  if (questionNumber >= 10) {
-    sessionStorage.setItem("score", score)
-    sessionStorage.setItem("usedAnswersArr", JSON.stringify(usedAnswersArr))
-    sessionStorage.setItem("usedQuestionsArr", JSON.stringify(usedQuestionsArr))
+  currentQuestion = questionObj;
+  buttonSpace.innerHTML = "";
+  if (questionNumber >= numOfQuestions) {
+    sessionStorage.setItem("score", score);
+    sessionStorage.setItem("usedAnswersArr", JSON.stringify(usedAnswersArr));
+    sessionStorage.setItem(
+      "usedQuestionsArr",
+      JSON.stringify(usedQuestionsArr),
+    );
     questionTitle.innerText = `The Quiz is over.\n
-    Go to your results!`
+    Go to your results!`;
     buttonSpace.innerHTML = `
         <a href="../html/results.html">
         <button>Results</button>
         </a>
-    `
-    buttonSpace.classList.add("button-start")
-    return
+    `;
+    buttonSpace.classList.add("button-start");
+    return;
   }
-  const { question, correct_answer, incorrect_answers } = questionObj
-  const allAnswers = [...incorrect_answers, correct_answer]
-  questionTitle.innerText = `${question}`
-  questionNumber++
-  currentQuestionNum.innerText = `QUESTION ${questionNumber}`
+  const { question, correct_answer, incorrect_answers } = questionObj;
+  const allAnswers = [...incorrect_answers, correct_answer];
+  questionTitle.innerText = `${question}`;
+  questionNumber++;
+  currentQuestionNum.innerText = `QUESTION ${questionNumber}`;
   getRandomQuestionOrder(questionObj).forEach((index) => {
     buttonSpace.innerHTML += `
     <button class="button-answer">
     ${allAnswers[index]}
     </button>
-    `
-  })
-  const buttonAnswers = document.querySelectorAll(".button-answer")
+    `;
+  });
+  const buttonAnswers = document.querySelectorAll(".button-answer");
   buttonAnswers.forEach((button) =>
     button.addEventListener("click", (e) => checkAnswer(e, questionObj)),
-  )
-  startTimer()
-}
+  );
+  startTimer();
+};
 
 // Function to check if the answer is correct. If it is, updates score by 1.
 
 const checkAnswer = (e, questionObj) => {
-  clearInterval(timerInterval)
+  clearInterval(timerInterval);
 
-  const { question, correct_answer } = questionObj
-  const buttonAnswers = document.querySelectorAll(".button-answer")
+  const { question, correct_answer } = questionObj;
+  const buttonAnswers = document.querySelectorAll(".button-answer");
   buttonAnswers.forEach((btn) => {
-    btn.disabled = true
-    btn.style.cursor = "not-allowed"
-  })
+    btn.disabled = true;
+    btn.style.cursor = "not-allowed";
+  });
   if (!e || !e.target) {
     usedAnswersArr.push(
       `You didn't answer the question ❌
       ${correct_answer} ✅`,
-    )
-    usedQuestionsArr.push(question)
-    const nextQuestionObj = randomQuestionExtraction()
-    currentQuestion = nextQuestionObj
-    displayNextQuestion(nextQuestionObj)
-    return
+    );
+    usedQuestionsArr.push(question);
+    const nextQuestionObj = randomQuestionExtraction();
+    currentQuestion = nextQuestionObj;
+    displayNextQuestion(nextQuestionObj);
+    return;
   }
   if (e.target.innerText && e.target.innerText === correct_answer) {
-    e.target.classList.add("correct-answer")
-    score++
-    usedAnswersArr.push(`Your answer: ${correct_answer} ✅`)
+    e.target.classList.add("correct-answer");
+    score++;
+    usedAnswersArr.push(`Your answer: ${correct_answer} ✅`);
   } else {
-    e.target.classList.add("wrong-answer")
+    e.target.classList.add("wrong-answer");
     usedAnswersArr.push(
       `Your answer: ${e.target.innerText} ❌ - 
       Correct answer: ${correct_answer} ✅`,
-    )
+    );
   }
-  usedQuestionsArr.push(question)
+  usedQuestionsArr.push(question);
   setTimeout(() => {
-    const nextQuestionObj = randomQuestionExtraction()
-    currentQuestion = nextQuestionObj
-    displayNextQuestion(nextQuestionObj)
-  }, 550)
-}
+    const nextQuestionObj = randomQuestionExtraction();
+    currentQuestion = nextQuestionObj;
+    displayNextQuestion(nextQuestionObj);
+  }, 550);
+};
 
 // Function to display the results
 
 const displayResults = () => {
   const correctPercentageP = document.getElementById(
     "percentage-correct-answers",
-  )
-  const resultMessage = document.getElementById("result-message")
-  const wrongPercentageP = document.getElementById("percentage-wrong-answers")
-  const correctAnswersP = document.getElementById("number-correct-answers")
-  const wrongAnswersP = document.getElementById("number-wrong-answers")
-  correctPercentageP.innerText = `${score.toFixed(1) * 10}%`
-  wrongPercentageP.innerText = `${(10 - score).toFixed(1) * 10}%`
-  correctAnswersP.innerText = `${score}/10 questions`
-  wrongAnswersP.innerText = `${10 - score}/10 questions`
+  );
+  const resultMessage = document.getElementById("result-message");
+  const wrongPercentageP = document.getElementById("percentage-wrong-answers");
+  const correctAnswersP = document.getElementById("number-correct-answers");
+  const wrongAnswersP = document.getElementById("number-wrong-answers");
+  correctPercentageP.innerText = `${(score / numOfQuestions).toFixed(1) * 100}%`;
+  wrongPercentageP.innerText = `${((numOfQuestions - score) / numOfQuestions).toFixed(1) * 100}%`;
+  correctAnswersP.innerText = `${score}/${numOfQuestions} questions`;
+  wrongAnswersP.innerText = `${numOfQuestions - score}/${numOfQuestions} questions`;
   if (score < 6) {
     resultMessage.innerHTML = `
     <h4>We're sorry!</h4>
@@ -778,9 +785,9 @@ const displayResults = () => {
     <p>You can try again later!</p>
     <p>Check your email (including promotion / spam folder)</p>
     </div>
-    `
+    `;
   }
-}
+};
 
 if (submitButton) {
 }
@@ -788,98 +795,103 @@ if (submitButton) {
 window.addEventListener("load", () => {
   // --- LOGICA PAGINA WELCOME ---
   if (document.getElementById("welcome-body")) {
-    const startButton = document.querySelector(".button-start button")
+    const startButton = document.querySelector(".button-start button");
 
     startButton.addEventListener("click", () => {
-      const difficultyChosen = document.getElementById("difficulty").value
-      const countChosen = document.getElementById("question-count").value
+      const difficultyChosen = document.getElementById("difficulty").value;
+      const countChosen = document.getElementById("question-count").value;
 
-      sessionStorage.setItem("chosenDifficulty", difficultyChosen)
-      sessionStorage.setItem("totalQuestions", countChosen)
-    })
+      sessionStorage.setItem("chosenDifficulty", difficultyChosen);
+      sessionStorage.setItem("totalQuestions", countChosen);
+    });
   }
 
   // --- LOGICA PAGINA BENCHMARK (QUIZ) ---
   if (document.getElementById("benchmark-body")) {
-    const difficulty = sessionStorage.getItem("chosenDifficulty") || "easy"
-
-    if (difficulty === "easy") arrQuestions = questionsEasy
-    else if (difficulty === "medium") arrQuestions = questionsMedium
-    else if (difficulty === "hard") arrQuestions = questionsHard
+    const totalQuestionNum = document.getElementById("total-question-num");
+    totalQuestionNum.innerText = `/ ${numOfQuestions}`;
+    if (difficulty === "easy")
+      arrQuestions = questionsEasy.filter((question, i) => i <= numOfQuestions);
+    else if (difficulty === "medium")
+      arrQuestions = questionsMedium.filter(
+        (question, i) => i <= numOfQuestions,
+      );
+    else if (difficulty === "hard")
+      arrQuestions = questionsHard.filter((question, i) => i <= numOfQuestions);
 
     // Fai partire il quiz immediatamente
-    const primaDomanda = randomQuestionExtraction()
-    displayNextQuestion(primaDomanda)
+    const primaDomanda = randomQuestionExtraction();
+    displayNextQuestion(primaDomanda);
 
-    return
+    return;
   } else if (document.getElementById("results-body")) {
-    const checkButton = document.getElementById("button-check")
-    const checkSection = document.getElementById("check-section")
-    const myChart = new Chart(document.getElementById("myDonutChart"), config) // Render del grafico
-    displayResults()
-    success()
+    const checkButton = document.getElementById("button-check");
+    const checkSection = document.getElementById("check-section");
+    const myChart = new Chart(document.getElementById("myDonutChart"), config); // Render del grafico
+    displayResults();
+    success();
 
-    let answersVisible = false
+    let answersVisible = false;
 
     checkButton.addEventListener("click", () => {
       if (!answersVisible) {
-        checkSection.innerHTML = ""
+        checkSection.innerHTML = "";
 
         usedQuestionsArr.forEach((ques, i) => {
           checkSection.innerHTML += `
         <div class="answer-check">  
           <p>${ques}</p>
           <p>${usedAnswersArr[i]}</p>
-        </div>`
-        })
-        checkButton.innerText = "HIDE ANSWERS"
-        checkSection.classList.remove("hidden")
-        answersVisible = true
+        </div>`;
+        });
+        checkButton.innerText = "HIDE ANSWERS";
+        checkSection.classList.remove("hidden");
+        answersVisible = true;
       } else {
-        checkSection.classList.toggle("hidden")
-        checkButton.innerText = "CHECK YOUR ANSWERS"
-        answersVisible = false
+        checkSection.classList.toggle("hidden");
+        checkButton.innerText = "CHECK YOUR ANSWERS";
+        answersVisible = false;
       }
-    })
-    sessionStorage.clear()
-    return
+    });
+    sessionStorage.clear();
+    return;
   } else if (document.getElementById("feedback-body")) {
-    const formFeedback = document.getElementById("feedback-form")
-    const feedbackInput = document.getElementById("feedback")
-    submitButton.addEventListener("click", (e) => resetForm(e))
+    const formFeedback = document.getElementById("feedback-form");
+    const feedbackInput = document.getElementById("feedback");
+    submitButton.addEventListener("click", (e) => resetForm(e));
     const resetForm = (e) => {
-      e.preventDefault()
+      e.preventDefault();
       if (!feedbackInput.value) {
-        alert("Inserisci un commento valido.")
-        return
+        alert("Inserisci un commento valido.");
+        return;
       }
-      submitButton.setAttribute("disabled", "true")
-      submitButton.style.cursor = "not-allowed"
-      alert("Grazie! Il tuo feedback è stato registrato.")
-      formFeedback.reset()
-      votoStars = -1
+      submitButton.setAttribute("disabled", "true");
+      submitButton.style.cursor = "not-allowed";
+      alert("Grazie! Il tuo feedback è stato registrato.");
+      formFeedback.reset();
+      votoStars = -1;
       for (let s = 0; s < stars.length; s++) {
-        stars[s].src = starVuota
+        stars[s].src = starVuota;
       }
-    }
+    };
 
     formFeedback.addEventListener("submit", function (e) {
-      e.preventDefault()
-      const feedbackValue = feedbackInput.value
+      e.preventDefault();
+      const feedbackValue = feedbackInput.value;
       if (!feedbackInput.value) {
-        alert("Inserisci un commento valido.")
-        return
+        alert("Inserisci un commento valido.");
+        return;
       }
-      console.log("Feedback ricevuto:", feedbackValue)
-      alert("Grazie! Il tuo feedback è stato registrato.")
-      formFeedback.reset()
-      votoStars = -1
+      console.log("Feedback ricevuto:", feedbackValue);
+      alert("Grazie! Il tuo feedback è stato registrato.");
+      formFeedback.reset();
+      votoStars = -1;
       for (let s = 0; s < stars.length; s++) {
-        stars[s].src = starVuota
+        stars[s].src = starVuota;
       }
-    })
+    });
   }
-})
+});
 
 // 1. Configurazione dei dati
 const data = {
@@ -890,47 +902,47 @@ const data = {
       hoverOffset: 1,
     },
   ],
-}
+};
 
-const stars = document.getElementsByClassName("star")
-const starVuota = "/assets/emptyStar.svg"
-const starPiena = "/assets/star.svg"
-let votoStars = -1
+const stars = document.getElementsByClassName("star");
+const starVuota = "/assets/emptyStar.svg";
+const starPiena = "/assets/star.svg";
+let votoStars = -1;
 
 for (let i = 0; i < stars.length; i++) {
   stars[i].addEventListener("mouseenter", function () {
-    if (votoStars !== -1) return
+    if (votoStars !== -1) return;
     for (let j = 0; j < stars.length; j++) {
       if (j <= i) {
-        stars[j].src = starPiena
+        stars[j].src = starPiena;
       } else {
-        stars[j].src = starVuota
+        stars[j].src = starVuota;
       }
     }
-  })
+  });
 
   stars[i].addEventListener("mouseleave", function () {
-    if (votoStars !== -1) return
+    if (votoStars !== -1) return;
 
     for (let k = 0; k < stars.length; k++) {
       if (k <= votoStars) {
-        stars[k].src = starPiena
+        stars[k].src = starPiena;
       } else {
-        stars[k].src = starVuota
+        stars[k].src = starVuota;
       }
     }
-  })
+  });
 
   stars[i].addEventListener("click", function () {
-    if (votoStars !== -1) return
+    if (votoStars !== -1) return;
 
-    votoStars = i
-    let voto = i + 1
+    votoStars = i;
+    let voto = i + 1;
     for (let s = 0; s < stars.length; s++) {
-      stars[s].classList.remove("can-hover")
+      stars[s].classList.remove("can-hover");
     }
-    alert("Rating: " + voto)
-  })
+    alert("Rating: " + voto);
+  });
 }
 // 3. Inizializzazione del grafico con il plugin
 const config = {
@@ -939,7 +951,7 @@ const config = {
   options: {
     cutout: "70%",
   },
-}
+};
 
 // form di feedback
 
@@ -948,24 +960,24 @@ const success = function () {
   if (score * 10 > 75) {
     for (let i = 0; i < 100; i++) {
       setTimeout(() => {
-        const coriandolo = document.createElement("div")
-        coriandolo.className = "coriandolo"
-        coriandolo.innerHTML = "🎉"
+        const coriandolo = document.createElement("div");
+        coriandolo.className = "coriandolo";
+        coriandolo.innerHTML = "🎉";
 
-        coriandolo.style.left = Math.random() * 100 + "vw"
+        coriandolo.style.left = Math.random() * 100 + "vw";
 
-        coriandolo.style.top = "-10px"
+        coriandolo.style.top = "-10px";
 
-        coriandolo.style.animationDuration = Math.random() * 3 + 2 + "s"
+        coriandolo.style.animationDuration = Math.random() * 3 + 2 + "s";
 
-        const resultsBody = document.querySelector("#results-body")
+        const resultsBody = document.querySelector("#results-body");
 
-        resultsBody.appendChild(coriandolo)
+        resultsBody.appendChild(coriandolo);
 
         setTimeout(() => {
-          coriandolo.remove()
-        }, 5000)
-      }, i * 50)
+          coriandolo.remove();
+        }, 5000);
+      }, i * 50);
     }
   }
-}
+};
