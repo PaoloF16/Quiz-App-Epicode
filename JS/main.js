@@ -117,7 +117,6 @@ const randomQuestionExtraction = function () {
   //funzione per randomizzare domande
   if (pulledQuestions.length === questions.length) {
     //se l'array pulled question è uguale a quello delle question vuol dire che le domande sono finite
-    console.log("Hai risposto a tutte le domande!");
     return null;
   }
   let indiceRand;
@@ -247,7 +246,6 @@ const checkAnswer = (e, questionObj) => {
     const nextQuestionObj = randomQuestionExtraction();
     currentQuestion = nextQuestionObj;
     displayNextQuestion(nextQuestionObj);
-    console.log(usedAnswersArr, usedQuestionsArr);
     return;
   }
   if (e.target.innerText && e.target.innerText === correct_answer) {
@@ -263,7 +261,6 @@ const checkAnswer = (e, questionObj) => {
   const nextQuestionObj = randomQuestionExtraction();
   currentQuestion = nextQuestionObj;
   displayNextQuestion(nextQuestionObj);
-  console.log(usedAnswersArr, usedQuestionsArr);
 };
 
 // Function to display the results
@@ -311,6 +308,7 @@ window.addEventListener("load", () => {
   } else if (document.getElementById("results-body")) {
     const checkButton = document.getElementById("button-check");
     const checkSection = document.getElementById("check-section");
+    const myChart = new Chart(document.getElementById("myDonutChart"), config); // Render del grafico
     displayResults();
 
     let answersVisible = false;
@@ -337,6 +335,21 @@ window.addEventListener("load", () => {
     });
     sessionStorage.clear();
     return;
+  } else if (document.getElementById("feedback-body")) {
+    const formFeedback = document.getElementById("feedback-form");
+
+    formFeedback.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const feedbackValue = document.getElementById("feedback").value;
+      console.log("Feedback ricevuto:", feedbackValue);
+      alert("Grazie! Il tuo feedback è stato registrato.");
+      formFeedback.reset();
+
+      votoStars = -1;
+      for (let s = 0; s < stars.length; s++) {
+        stars[s].src = starVuota;
+      }
+    });
   }
 });
 
@@ -400,22 +413,4 @@ const config = {
   },
 };
 
-// Render del grafico
-const myChart = new Chart(document.getElementById("myDonutChart"), config);
-
 // form di feedback
-
-const formFeedback = document.getElementById("feedback-form");
-
-formFeedback.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const feedbackValue = document.getElementById("feedback").value;
-  console.log("Feedback ricevuto:", feedbackValue);
-  alert("Grazie! Il tuo feedback è stato registrato.");
-  formFeedback.reset();
-
-  votoStars = -1;
-  for (let s = 0; s < stars.length; s++) {
-    stars[s].src = starVuota;
-  }
-});
