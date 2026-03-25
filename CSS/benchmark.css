@@ -11,13 +11,15 @@ header {
 }
 
 #question-title {
-  font-size: 4.2em;
+  width: 70%;
+  height: 30%;
+  font-weight: 700;
+  font-size: 2.2rem;
   line-height: 1.1;
   color: white;
   text-align: center;
   font-weight: 300;
-  max-width: 900px;
-  margin: 70px auto 30px auto;
+  margin: 20px auto 30px auto;
 }
 
 h6 {
@@ -102,7 +104,7 @@ footer {
   justify-content: center;
   gap: 10px 30px;
   max-width: 900px;
-  margin: 50px auto 0 auto;
+  margin: 15px auto 0 auto;
 }
 
 #question-display {
@@ -211,4 +213,14 @@ circle {
 .timer-nums {
   margin: 0;
   font-size: 2em;
+}
+
+.button-answer.correct-answer {
+  border: 5px solid green;
+  background: rgba(0, 255, 0, 0.459);
+}
+
+.button-answer.wrong-answer {
+  border: 5px solid red;
+  background: rgba(255, 0, 0, 0.459);
 }
