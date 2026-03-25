@@ -73,6 +73,10 @@ button a {
   color: inherit;
 }
 
+.stars-container {
+  height: 50px;
+}
+
 .stars-container img {
   width: 4%;
   margin: 0 0.5em;

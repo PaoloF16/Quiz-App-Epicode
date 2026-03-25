@@ -214,3 +214,13 @@ circle {
   margin: 0;
   font-size: 2em;
 }
+
+.button-answer.correct-answer {
+  border: 5px solid green;
+  background: rgba(0, 255, 0, 0.459);
+}
+
+.button-answer.wrong-answer {
+  border: 5px solid red;
+  background: rgba(255, 0, 0, 0.459);
+}
