@@ -816,6 +816,7 @@ window.addEventListener("load", () => {
     const checkSection = document.getElementById("check-section");
     const myChart = new Chart(document.getElementById("myDonutChart"), config); // Render del grafico
     displayResults();
+    success();
 
     let answersVisible = false;
 
@@ -940,3 +941,30 @@ const config = {
 };
 
 // form di feedback
+
+// animation effect
+const success = function () {
+  if (score * 10 > 75) {
+    for (let i = 0; i < 100; i++) {
+      setTimeout(() => {
+        const coriandolo = document.createElement("div");
+        coriandolo.className = "coriandolo";
+        coriandolo.innerHTML = "🎉";
+
+        coriandolo.style.left = Math.random() * 100 + "vw";
+
+        coriandolo.style.top = "-10px";
+
+        coriandolo.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+        const resultsBody = document.querySelector("#results-body");
+
+        resultsBody.appendChild(coriandolo);
+
+        setTimeout(() => {
+          coriandolo.remove();
+        }, 5000);
+      }, i * 50);
+    }
+  }
+};

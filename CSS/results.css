@@ -196,3 +196,16 @@ canvas {
 .hidden {
   display: none;
 }
+
+.coriandolo {
+  position: fixed;
+  top: -50px;
+  font-size: 30px;
+  animation: caduta 4s linear forwards;
+}
+
+
+@keyframes caduta {
+        to {
+          transform: translateY(110vh) rotate(720deg);
+        }
