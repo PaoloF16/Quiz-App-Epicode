@@ -594,10 +594,11 @@ const questionsHard = [
 ];
 
 const pulledQuestions = []; // Array domande già poste
+let arrQuestions = []; // Array dinamico che avrà le domande o Easy o Medium o Hard
 
 const randomQuestionExtraction = function () {
   //funzione per randomizzare domande
-  if (pulledQuestions.length === questionsEasy.length) {
+  if (pulledQuestions.length === arrQuestions.length) {
     //se l'array pulled question è uguale a quello delle question vuol dire che le domande sono finite
     return null;
   }
@@ -605,7 +606,7 @@ const randomQuestionExtraction = function () {
   let domandaScelta;
   do {
     indiceRand = Math.floor(Math.random() * questionsEasy.length); //indice delle domande nell'array
-    domandaScelta = questionsEasy[indiceRand];
+    domandaScelta = arrQuestions[indiceRand];
   } while (pulledQuestions.includes(domandaScelta));
   pulledQuestions.push(domandaScelta);
   return domandaScelta;
@@ -784,8 +785,31 @@ if (submitButton) {
 }
 
 window.addEventListener("load", () => {
+  // --- LOGICA PAGINA WELCOME ---
+  if (document.getElementById("welcome-body")) {
+    const startButton = document.querySelector(".button-start button");
+
+    startButton.addEventListener("click", () => {
+      const difficultyChosen = document.getElementById("difficulty").value;
+      const countChosen = document.getElementById("question-count").value;
+
+      sessionStorage.setItem("chosenDifficulty", difficultyChosen);
+      sessionStorage.setItem("totalQuestions", countChosen);
+    });
+  }
+
+  // --- LOGICA PAGINA BENCHMARK (QUIZ) ---
   if (document.getElementById("benchmark-body")) {
-    displayNextQuestion(randomQuestionExtraction());
+    const difficulty = sessionStorage.getItem("chosenDifficulty") || "easy";
+
+    if (difficulty === "easy") arrQuestions = questionsEasy;
+    else if (difficulty === "medium") arrQuestions = questionsMedium;
+    else if (difficulty === "hard") arrQuestions = questionsHard;
+
+    // Fai partire il quiz immediatamente
+    const primaDomanda = randomQuestionExtraction();
+    displayNextQuestion(primaDomanda);
+
     return;
   } else if (document.getElementById("results-body")) {
     const checkButton = document.getElementById("button-check");
