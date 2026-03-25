@@ -297,16 +297,7 @@ const displayResults = () => {
   }
 };
 
-const resetForm = (e) => {
-  e.preventDefault();
-  const form = document.getElementById("feedback-form");
-  submitButton.setAttribute("disabled", "true");
-  submitButton.style.cursor = "not-allowed";
-  form.reset();
-};
-
 if (submitButton) {
-  submitButton.addEventListener("click", (e) => resetForm(e));
 }
 
 window.addEventListener("load", () => {
@@ -345,14 +336,34 @@ window.addEventListener("load", () => {
     return;
   } else if (document.getElementById("feedback-body")) {
     const formFeedback = document.getElementById("feedback-form");
+    const feedbackInput = document.getElementById("feedback");
+    submitButton.addEventListener("click", (e) => resetForm(e));
+    const resetForm = (e) => {
+      e.preventDefault();
+      if (!feedbackInput.value) {
+        alert("Inserisci un commento valido.");
+        return;
+      }
+      submitButton.setAttribute("disabled", "true");
+      submitButton.style.cursor = "not-allowed";
+      alert("Grazie! Il tuo feedback è stato registrato.");
+      formFeedback.reset();
+      votoStars = -1;
+      for (let s = 0; s < stars.length; s++) {
+        stars[s].src = starVuota;
+      }
+    };
 
     formFeedback.addEventListener("submit", function (e) {
       e.preventDefault();
-      const feedbackValue = document.getElementById("feedback").value;
+      const feedbackValue = feedbackInput.value;
+      if (!feedbackInput.value) {
+        alert("Inserisci un commento valido.");
+        return;
+      }
       console.log("Feedback ricevuto:", feedbackValue);
       alert("Grazie! Il tuo feedback è stato registrato.");
       formFeedback.reset();
-
       votoStars = -1;
       for (let s = 0; s < stars.length; s++) {
         stars[s].src = starVuota;
