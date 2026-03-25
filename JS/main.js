@@ -170,7 +170,7 @@ const questionsEasy = [
     difficulty: "easy",
     question: "Which symbol is used for comments in JavaScript (single line)?",
     correct_answer: "//",
-    incorrect_answers: ["<!-- -->", "#", "/* */"],
+    incorrect_answers: [".", "#", "/* */"],
   },
   {
     category: "Science: Computers",
