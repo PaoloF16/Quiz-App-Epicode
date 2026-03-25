@@ -14,7 +14,7 @@ const usedQuestionsArr =
 const usedAnswersArr =
   JSON.parse(sessionStorage.getItem("usedAnswersArr")) || [];
 let currentQuestion = {};
-const questions = [
+const questionsEasy = [
   {
     category: "Science: Computers",
     type: "multiple",
@@ -108,21 +108,504 @@ const questions = [
     correct_answer: "Java",
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "What does RAM stand for?",
+    correct_answer: "Random Access Memory",
+    incorrect_answers: [
+      "Read Access Memory",
+      "Run Access Memory",
+      "Rapid Access Memory",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "Which device is used to input text into a computer?",
+    correct_answer: "Keyboard",
+    incorrect_answers: ["Monitor", "Printer", "Speaker"],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "easy",
+    question: "A mouse is an input device.",
+    correct_answer: "True",
+    incorrect_answers: ["False"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "Which company developed the Windows operating system?",
+    correct_answer: "Microsoft",
+    incorrect_answers: ["Apple", "Google", "IBM"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "What does URL stand for?",
+    correct_answer: "Uniform Resource Locator",
+    incorrect_answers: [
+      "Universal Resource Link",
+      "Uniform Retrieval Link",
+      "Universal Reference Locator",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "easy",
+    question: "HTML is used to structure web pages.",
+    correct_answer: "True",
+    incorrect_answers: ["False"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "Which symbol is used for comments in JavaScript (single line)?",
+    correct_answer: "//",
+    incorrect_answers: [".", "#", "/* */"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "Which part of the computer performs calculations?",
+    correct_answer: "CPU",
+    incorrect_answers: ["RAM", "Hard Drive", "GPU"],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "easy",
+    question: "A browser is used to access websites.",
+    correct_answer: "True",
+    incorrect_answers: ["False"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "Which file extension is used for JavaScript files?",
+    correct_answer: ".js",
+    incorrect_answers: [".html", ".css", ".java"],
+  },
+];
+
+const questionsMedium = [
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "What does the 'HTTP' protocol primarily define?",
+    correct_answer: "How messages are formatted and transmitted over the web",
+    incorrect_answers: [
+      "How files are stored on a server",
+      "How DNS resolves domain names",
+      "How encryption keys are generated",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "Which data structure uses FIFO (First In, First Out)?",
+    correct_answer: "Queue",
+    incorrect_answers: ["Stack", "Tree", "Graph"],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "medium",
+    question: "In JavaScript, 'null' and 'undefined' are strictly equal (===).",
+    correct_answer: "False",
+    incorrect_answers: ["True"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question:
+      "Which sorting algorithm has the best average-case time complexity?",
+    correct_answer: "Merge Sort",
+    incorrect_answers: ["Bubble Sort", "Insertion Sort", "Selection Sort"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "What does SQL stand for?",
+    correct_answer: "Structured Query Language",
+    incorrect_answers: [
+      "Simple Query Language",
+      "Sequential Query Logic",
+      "Structured Question Language",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "medium",
+    question: "A compiler translates code line-by-line during execution.",
+    correct_answer: "False",
+    incorrect_answers: ["True"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "What does DOM stand for in web development?",
+    correct_answer: "Document Object Model",
+    incorrect_answers: [
+      "Data Object Model",
+      "Digital Ordinance Model",
+      "Document Oriented Method",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "Which HTTP status code means 'Not Found'?",
+    correct_answer: "404",
+    incorrect_answers: ["200", "500", "301"],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "medium",
+    question: "JavaScript is a statically typed language.",
+    correct_answer: "False",
+    incorrect_answers: ["True"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "Which of these is a JavaScript framework?",
+    correct_answer: "React",
+    incorrect_answers: ["Laravel", "Django", "Flask"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "What does API stand for?",
+    correct_answer: "Application Programming Interface",
+    incorrect_answers: [
+      "Applied Program Internet",
+      "Advanced Programming Interaction",
+      "Application Process Interface",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "Which method converts JSON data into a JavaScript object?",
+    correct_answer: "JSON.parse()",
+    incorrect_answers: [
+      "JSON.stringify()",
+      "JSON.convert()",
+      "JSON.toObject()",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "medium",
+    question: "CSS Flexbox is primarily used for layout and alignment.",
+    correct_answer: "True",
+    incorrect_answers: ["False"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "Which keyword is used to declare a constant in JavaScript?",
+    correct_answer: "const",
+    incorrect_answers: ["let", "var", "constant"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "Which HTML tag is used to include JavaScript?",
+    correct_answer: "<script>",
+    incorrect_answers: ["<js>", "<javascript>", "<code>"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "What does 'responsive design' mean?",
+    correct_answer: "Design that adapts to different screen sizes and devices",
+    incorrect_answers: [
+      "Design that loads very quickly",
+      "Design that responds to user clicks",
+      "Design optimized only for mobile",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question:
+      "Which CSS property is used to change the text color of an element?",
+    correct_answer: "color",
+    incorrect_answers: ["font-color", "text-color", "background-color"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "Which JavaScript method adds an element to the end of an array?",
+    correct_answer: "push()",
+    incorrect_answers: ["pop()", "shift()", "unshift()"],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "medium",
+    question: "In HTML, the <div> tag is used to create a division or section.",
+    correct_answer: "True",
+    incorrect_answers: ["False"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "medium",
+    question: "Which of these is used to style web pages?",
+    correct_answer: "CSS",
+    incorrect_answers: ["HTML", "Python", "SQL"],
+  },
+];
+
+const questionsHard = [
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "What is the time complexity of binary search?",
+    correct_answer: "O(log n)",
+    incorrect_answers: ["O(n)", "O(n log n)", "O(1)"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "Which layer of the OSI model is responsible for routing?",
+    correct_answer: "Network Layer",
+    incorrect_answers: ["Transport Layer", "Data Link Layer", "Session Layer"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "Which of the following is NOT a NoSQL database?",
+    correct_answer: "PostgreSQL",
+    incorrect_answers: ["MongoDB", "Cassandra", "Redis"],
+  },
+  {
+    category: "Science: Computers",
+    type: "hard",
+    difficulty: "hard",
+    question: "What is a race condition in programming?",
+    correct_answer:
+      "When the system's behavior depends on the sequence or timing of uncontrollable events",
+    incorrect_answers: [
+      "When two loops execute at the same speed",
+      "When a program runs too fast for the CPU",
+      "When threads are executed sequentially",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question:
+      "What is the space complexity of a recursive function without tail call optimization?",
+    correct_answer: "O(n)",
+    incorrect_answers: ["O(1)", "O(log n)", "O(n log n)"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "Which HTTP method is idempotent?",
+    correct_answer: "PUT",
+    incorrect_answers: ["POST", "PATCH", "CONNECT"],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "hard",
+    question:
+      "In JavaScript, closures allow a function to access variables from its outer scope even after the outer function has returned.",
+    correct_answer: "True",
+    incorrect_answers: ["False"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "What does ACID stand for in database systems?",
+    correct_answer: "Atomicity, Consistency, Isolation, Durability",
+    incorrect_answers: [
+      "Accuracy, Consistency, Isolation, Durability",
+      "Atomicity, Control, Integrity, Durability",
+      "Atomicity, Consistency, Integration, Data",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "Which of these is a characteristic of a deadlock?",
+    correct_answer: "Circular wait",
+    incorrect_answers: [
+      "Parallel execution",
+      "Load balancing",
+      "Memory caching",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question:
+      "In Big-O notation, which algorithm is the most efficient for large datasets?",
+    correct_answer: "O(log n)",
+    incorrect_answers: ["O(n)", "O(n^2)", "O(2^n)"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "What is the purpose of a load balancer?",
+    correct_answer: "Distribute network traffic across multiple servers",
+    incorrect_answers: [
+      "Encrypt network data",
+      "Store database backups",
+      "Compile source code",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "hard",
+    question: "A hash table guarantees O(1) lookup time in all cases.",
+    correct_answer: "False",
+    incorrect_answers: ["True"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question:
+      "Which protocol is used to securely transfer files over the internet?",
+    correct_answer: "SFTP",
+    incorrect_answers: ["FTP", "HTTP", "SMTP"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "What does normalization in databases aim to achieve?",
+    correct_answer: "Reduce redundancy and improve data integrity",
+    incorrect_answers: [
+      "Increase query speed by duplicating data",
+      "Encrypt sensitive data",
+      "Simplify UI design",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question:
+      "What is the main purpose of the 'use strict' directive in JavaScript?",
+    correct_answer: "Enforce stricter parsing and error handling",
+    incorrect_answers: [
+      "Improve execution speed",
+      "Enable asynchronous code",
+      "Allow global variables",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question:
+      "Which data structure is best suited for implementing recursion internally?",
+    correct_answer: "Stack",
+    incorrect_answers: ["Queue", "Heap", "Graph"],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "hard",
+    question: "In CSS, 'z-index' only works on positioned elements.",
+    correct_answer: "True",
+    incorrect_answers: ["False"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "Which of these is a feature of functional programming?",
+    correct_answer: "Pure functions",
+    incorrect_answers: [
+      "Global state mutation",
+      "Class inheritance",
+      "Manual memory management",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "What is the purpose of a 'Promise' in JavaScript?",
+    correct_answer: "Handle asynchronous operations",
+    incorrect_answers: [
+      "Store data permanently",
+      "Create loops",
+      "Define CSS styles",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "hard",
+    question: "Which of the following best describes 'event bubbling'?",
+    correct_answer: "Events propagate from child to parent elements",
+    incorrect_answers: [
+      "Events stop at the first element",
+      "Events only trigger on the root element",
+      "Events propagate from parent to child only",
+    ],
+  },
 ];
 
 const pulledQuestions = []; // Array domande già poste
 
 const randomQuestionExtraction = function () {
   //funzione per randomizzare domande
-  if (pulledQuestions.length === questions.length) {
+  if (pulledQuestions.length === questionsEasy.length) {
     //se l'array pulled question è uguale a quello delle question vuol dire che le domande sono finite
     return null;
   }
   let indiceRand;
   let domandaScelta;
   do {
-    indiceRand = Math.floor(Math.random() * questions.length); //indice delle domande nell'array
-    domandaScelta = questions[indiceRand];
+    indiceRand = Math.floor(Math.random() * questionsEasy.length); //indice delle domande nell'array
+    domandaScelta = questionsEasy[indiceRand];
   } while (pulledQuestions.includes(domandaScelta));
   pulledQuestions.push(domandaScelta);
   return domandaScelta;
