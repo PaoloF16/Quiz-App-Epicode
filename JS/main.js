@@ -3,7 +3,6 @@
 const questionTitle = document.getElementById("question-title");
 const buttonSpace = document.getElementById("button-space");
 const currentQuestionNum = document.getElementById("question-num");
-const buttonAnswers = document.querySelectorAll(".button-answer");
 const submitButton = document.getElementById("submit-button");
 
 // Global Variables Delcaration
@@ -237,6 +236,11 @@ const checkAnswer = (e, questionObj) => {
   clearInterval(timerInterval);
 
   const { question, correct_answer } = questionObj;
+  const buttonAnswers = document.querySelectorAll(".button-answer");
+  buttonAnswers.forEach((btn) => {
+    btn.disabled = true;
+    btn.style.cursor = "not-allowed";
+  });
   if (!e || !e.target) {
     usedAnswersArr.push(
       `You didn't answer the question ❌
@@ -249,18 +253,22 @@ const checkAnswer = (e, questionObj) => {
     return;
   }
   if (e.target.innerText && e.target.innerText === correct_answer) {
+    e.target.classList.add("correct-answer");
     score++;
     usedAnswersArr.push(`Your answer: ${correct_answer} ✅`);
   } else {
+    e.target.classList.add("wrong-answer");
     usedAnswersArr.push(
       `Your answer: ${e.target.innerText} ❌ - 
       Correct answer: ${correct_answer} ✅`,
     );
   }
   usedQuestionsArr.push(question);
-  const nextQuestionObj = randomQuestionExtraction();
-  currentQuestion = nextQuestionObj;
-  displayNextQuestion(nextQuestionObj);
+  setTimeout(() => {
+    const nextQuestionObj = randomQuestionExtraction();
+    currentQuestion = nextQuestionObj;
+    displayNextQuestion(nextQuestionObj);
+  }, 550);
 };
 
 // Function to display the results
