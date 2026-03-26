@@ -11,8 +11,10 @@ const submitButton = document.getElementById("submit-button")
 let score = parseInt(sessionStorage.getItem("score")) || 0 // Dinamically updated score that will be displayed in the results page.
 let questionNumber = 0 // Number of the question the user is facing.
 const usedQuestionsArr =
+  // array di domande utilizzate
   JSON.parse(sessionStorage.getItem("usedQuestionsArr")) || []
 const usedAnswersArr =
+  // array di risposta utilizzate
   JSON.parse(sessionStorage.getItem("usedAnswersArr")) || []
 const difficulty = sessionStorage.getItem("chosenDifficulty") || "easy"
 const numOfQuestions = sessionStorage.getItem("totalQuestions") || 10
@@ -611,7 +613,7 @@ const randomQuestionExtraction = function () {
   }
   let randomIndex
   let selectedQuestion
-
+  // finchè nelle pulled includono le select question
   do {
     randomIndex = Math.floor(Math.random() * arrQuestions.length)
     selectedQuestion = arrQuestions[randomIndex]
@@ -775,7 +777,7 @@ const displayResults = () => {
   wrongPercentageP.innerText = `${(((numOfQuestions - score) / numOfQuestions) * 100).toFixed(1)}%`
   correctAnswersP.innerText = `${score}/${numOfQuestions} questions`
   wrongAnswersP.innerText = `${numOfQuestions - score}/${numOfQuestions} questions`
-  if (score < 6) {
+  if (((score / numOfQuestions) * 100).toFixed(1) < 60) {
     resultMessage.innerHTML = `
     <h4>We're sorry!</h4>
     <p class="youPass">You didn't pass the exam this time.</p>
@@ -785,9 +787,6 @@ const displayResults = () => {
     </div>
     `
   }
-}
-
-if (submitButton) {
 }
 
 window.addEventListener("load", () => {
@@ -860,6 +859,8 @@ window.addEventListener("load", () => {
     const resetForm = (e) => {
       e.preventDefault()
       if (!feedbackInput.value) {
+        // feddbackinput.value===fasle => false === false(true)   undefined===false(false) null===false(false)
+        // !feedbackinput.value => false === false (true)  undefined===false(true)  null====false(true)
         alert("Inserisci un commento valido.")
         return
       }
@@ -868,6 +869,7 @@ window.addEventListener("load", () => {
       alert("Grazie! Il tuo feedback è stato registrato.")
       formFeedback.reset()
       votoStars = -1
+      // -1 è l'indice dellarray di stelle (0 indica il primo valore cioè la prima stella )
       for (let s = 0; s < stars.length; s++) {
         stars[s].src = starVuota
       }
@@ -900,7 +902,7 @@ const data = {
         ((score / numOfQuestions) * 100).toFixed(1),
       ],
       backgroundColor: ["#D20094", "#00ffff"],
-      hoverOffset: 1,
+      hoverOffset: 0,
     },
   ],
 }
@@ -946,7 +948,7 @@ for (let i = 0; i < stars.length; i++) {
   })
 }
 
-// 3. Inizializzazione del grafico con il plugin
+// 3. Inizializzazione del grafico
 const config = {
   type: "doughnut",
   data: data,
@@ -979,7 +981,7 @@ const success = function () {
         setTimeout(() => {
           coriandolo.remove()
         }, 5000)
-      }, i * 50)
+      }, i * 100)
     }
   }
 }
