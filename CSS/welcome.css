@@ -1,3 +1,6 @@
+body {
+  display: block;
+}
 main {
   padding: clamp(20px, 2vw, 32px) clamp(20px, 7vw, 120px) clamp(28px, 4vw, 64px);
   display: grid;
@@ -206,9 +209,12 @@ main {
 ------------------------- */
 .button-start {
   grid-area: button;
-  align-self: end;
-  justify-self: end;
-  margin-right: clamp(20px, 6vw, 120px);
+  position: absolute;
+  align-self: self-start;
+  justify-self: start;
+  margin-right: clamp(300px, 6vw, 120px);
+  margin-left: 825px;
+  bottom: -30px;
 }
 
 .button-start button {
@@ -322,7 +328,6 @@ main {
   }
 }
 
-
 /* -------------------------
    MOBILE
 ------------------------- */
@@ -407,4 +412,3 @@ main {
     min-width: 18px;
   }
 }
-
