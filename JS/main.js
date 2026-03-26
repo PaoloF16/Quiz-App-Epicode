@@ -945,6 +945,7 @@ for (let i = 0; i < stars.length; i++) {
     alert("Rating: " + voto)
   })
 }
+
 // 3. Inizializzazione del grafico con il plugin
 const config = {
   type: "doughnut",
@@ -958,7 +959,7 @@ const config = {
 
 // animation effect
 const success = function () {
-  if (score * 10 > 75) {
+  if (((score / numOfQuestions) * 100).toFixed(1) > 75) {
     for (let i = 0; i < 100; i++) {
       setTimeout(() => {
         const coriandolo = document.createElement("div")
