@@ -1,8 +1,13 @@
 body {
-  display: block;
+  margin: 0;
 }
+
 main {
-  padding: clamp(20px, 2vw, 32px) clamp(20px, 7vw, 120px) clamp(28px, 4vw, 64px);
+  width: 100%;
+}
+
+.welcome-form {
+  padding: clamp(20px, 2vw, 32px) clamp(40px, 7vw, 120px) clamp(40px, 5vw, 72px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas:
@@ -11,12 +16,25 @@ main {
     "list list"
     "options options"
     "terms button";
-  row-gap: clamp(20px, 2.2vw, 32px);
-  column-gap: clamp(20px, 3vw, 48px);
-  min-height: min(620px, 100dvh);
-  align-content: start;
+  row-gap: clamp(20px, 2vw, 28px);
+  column-gap: clamp(32px, 4vw, 80px);
   max-width: 1200px;
   margin: 0 auto;
+  min-height: 70vh;
+  align-content: start;
+}
+
+/* -------------------------
+   HEADER / LOGO
+------------------------- */
+header {
+  padding: 38px clamp(40px, 7vw, 120px) 0;
+}
+
+.up-logo img {
+  width: 170px;
+  max-width: 100%;
+  display: block;
 }
 
 /* -------------------------
@@ -24,18 +42,18 @@ main {
 ------------------------- */
 .title {
   grid-area: title;
-  margin-top: clamp(12px, 0.5vw, 80px);
+  margin-top: clamp(24px, 2vw, 48px);
   min-width: 0;
 }
 
 .title h1 {
   margin: 0;
-  font-size: clamp(2.2rem, 5vw, 5rem);
-  line-height: 0.95;
+  font-size: clamp(3.4rem, 7vw, 6.3rem);
+  line-height: 0.92;
   font-weight: 300;
-  color: #f0f0f0;
-  letter-spacing: clamp(-2px, -0.1vw, -0.5px);
-  max-width: min(36.2vw, 700px);
+  color: #f2f2f2;
+  letter-spacing: -2px;
+  max-width: 650px;
 }
 
 .title h1 strong,
@@ -49,25 +67,24 @@ main {
 ------------------------- */
 .subtitle {
   grid-area: subtitle;
-  max-width: min(37.5vw, 760px);
+  max-width: 900px;
   min-width: 0;
 }
 
 .subtitle h2 {
-  margin: 0 0 10px 0;
-  font-size: clamp(1.1rem, 2vw, 1.7rem);
+  margin: 0 0 12px 0;
+  font-size: clamp(1.5rem, 2vw, 2.1rem);
   color: #ff00b7;
   font-weight: 800;
 }
 
 .subtitle p {
   margin: 0;
-  font-size: clamp(1rem, 1vw, 1.35rem);
-  line-height: 1.5;
+  font-size: clamp(1rem, 1.15vw, 1.28rem);
+  line-height: 1.45;
   color: #f3f3f3;
-  max-width: min(40vw, 1000px);
+  max-width: 980px;
   font-weight: 500;
-  text-wrap: pretty;
 }
 
 /* -------------------------
@@ -75,22 +92,21 @@ main {
 ------------------------- */
 .list {
   grid-area: list;
-  max-width: min(40vw, 500px);
-  padding: clamp(18px, 3vw, 42px);
+  max-width: 760px;
+  padding-top: 6px;
   min-width: 0;
 }
 
 .list ul {
   margin: 0;
-  padding-left: clamp(18px, 1.4vw, 24px);
+  padding-left: 26px;
 }
 
 .list li {
-  margin-bottom: clamp(8px, 1vw, 16px);
-  font-size: clamp(0.98rem, 1.5vw, 1.1rem);
+  margin-bottom: 12px;
+  font-size: clamp(1rem, 1.15vw, 1.25rem);
   font-weight: 500;
   line-height: 1.5;
-  padding-left: 0.5vw;
   color: #f5f5f5;
   list-style-type: disc;
 }
@@ -105,10 +121,10 @@ main {
 .exam-options {
   grid-area: options;
   display: flex;
-  gap: clamp(16px, 2vw, 28px);
+  gap: 28px;
   flex-wrap: wrap;
   align-items: flex-start;
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 .option-group {
@@ -119,7 +135,7 @@ main {
 }
 
 .option-group label {
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
   font-weight: 700;
   color: #ffffff;
 }
@@ -160,25 +176,24 @@ main {
 .terms-condition-button {
   grid-area: terms;
   display: flex;
-  align-items: flex-start;
-  gap: clamp(10px, 1vw, 14px);
+  align-items: center;
+  gap: 12px;
   align-self: end;
-  padding-bottom: clamp(0px, 1vw, 12px);
   min-width: 0;
+  padding-top: 8px;
 }
 
 .terms-condition-button input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
-  width: clamp(18px, 2vw, 22px);
-  height: clamp(18px, 2vw, 22px);
-  min-width: clamp(18px, 2vw, 22px);
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
   border: 3px solid #ffffff;
   background: transparent;
   cursor: pointer;
   display: inline-block;
   position: relative;
-  top: 0.1em;
   margin: 0;
   flex-shrink: 0;
 }
@@ -196,7 +211,7 @@ main {
 }
 
 .terms-condition-button label {
-  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
   font-weight: 700;
   color: #ffffff;
   cursor: pointer;
@@ -209,39 +224,38 @@ main {
 ------------------------- */
 .button-start {
   grid-area: button;
-  position: absolute;
-  align-self: self-start;
-  justify-self: start;
-  margin-right: clamp(300px, 6vw, 120px);
-  margin-left: 825px;
-  bottom: -30px;
+  align-self: end;
+  justify-self: end;
+  margin: 0;
 }
 
 .button-start button {
-  min-width: clamp(220px, 20vw, 360px);
-  min-height: clamp(52px, 6vw, 88px);
+  min-width: 260px;
+  min-height: 72px;
   border: none;
   cursor: pointer;
   text-transform: uppercase;
-  font-size: clamp(1rem, 2vw, 1.8rem);
-  font-weight: 700;
+  font-size: clamp(1.1rem, 1.8vw, 1.8rem);
+  font-weight: 800;
   color: #07124b;
-  background: #00f0ff;
+  background: #19e4ee;
   box-shadow:
-    0 0 16px rgba(0, 240, 255, 0.85),
-    0 0 35px rgba(0, 240, 255, 0.45);
+    0 0 18px rgba(0, 240, 255, 0.9),
+    0 0 40px rgba(0, 240, 255, 0.45);
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
-  padding: clamp(12px, 1vw, 18px) clamp(20px, 2vw, 28px);
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+  padding: 18px 34px;
   border-radius: 0;
 }
 
 .button-start button:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 0 18px rgba(0, 240, 255, 1),
-    0 0 40px rgba(0, 240, 255, 0.6);
+    0 0 20px rgba(0, 240, 255, 1),
+    0 0 44px rgba(0, 240, 255, 0.65);
+  filter: brightness(1.03);
 }
 
 .button-start button:active {
@@ -252,9 +266,8 @@ main {
    LARGE SCREENS
 ------------------------- */
 @media (min-width: 1600px) {
-  main {
-    grid-template-columns: minmax(0, 1fr) auto;
-    max-width: 1800px;
+  .welcome-form {
+    max-width: 1360px;
   }
 
   .title h1,
@@ -280,7 +293,7 @@ main {
     min-height: calc(100dvh - 36px);
   }
 
-  main {
+  .welcome-form {
     padding: 24px 28px 36px;
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -295,7 +308,7 @@ main {
   }
 
   .title {
-    margin-top: clamp(16px, 4vw, 40px);
+    margin-top: 18px;
   }
 
   .title h1,
@@ -316,15 +329,18 @@ main {
     min-width: 100%;
   }
 
+  .terms-condition-button {
+    align-self: start;
+  }
+
   .button-start {
     justify-self: start;
     width: 100%;
-    margin-right: 0;
   }
 
   .button-start button {
     min-width: clamp(220px, 50vw, 320px);
-    min-height: 56px;
+    min-height: 60px;
   }
 }
 
@@ -332,19 +348,28 @@ main {
    MOBILE
 ------------------------- */
 @media (max-width: 768px) {
-  main {
+  header {
+    padding: 28px 18px 0;
+  }
+
+  .up-logo img {
+    width: 145px;
+  }
+
+  .welcome-form {
     padding: 20px 18px 28px;
     row-gap: 20px;
   }
 
   .title h1 {
-    font-size: clamp(2rem, 10vw, 3.4rem);
-    line-height: 1;
+    font-size: clamp(2.6rem, 11vw, 4rem);
+    line-height: 0.96;
     max-width: 100%;
+    letter-spacing: -1px;
   }
 
   .subtitle h2 {
-    font-size: clamp(1.15rem, 5vw, 1.45rem);
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
   }
 
   .subtitle p,
@@ -354,7 +379,7 @@ main {
   }
 
   .list {
-    padding: 18px 16px;
+    padding-top: 0;
   }
 
   .terms-condition-button {
@@ -374,12 +399,13 @@ main {
 
   .button-start {
     width: 100%;
+    justify-self: stretch;
   }
 
   .button-start button {
     width: 100%;
     min-width: 100%;
-    min-height: 54px;
+    min-height: 56px;
     font-size: clamp(1rem, 4.8vw, 1.2rem);
   }
 }
@@ -388,7 +414,7 @@ main {
    VERY SMALL DEVICES
 ------------------------- */
 @media (max-width: 420px) {
-  main {
+  .welcome-form {
     padding: 16px 14px 24px;
   }
 
@@ -397,7 +423,7 @@ main {
   }
 
   .title h1 {
-    font-size: clamp(1.8rem, 9vw, 2.5rem);
+    font-size: clamp(2.1rem, 10vw, 2.8rem);
   }
 
   .subtitle p,
