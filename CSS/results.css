@@ -1,12 +1,14 @@
 #results-body {
   font-family: "Inter", sans-serif;
+  margin: 0;
+  min-height: 100vh;
 }
 
 .up-logo img {
   width: 170px;
   max-width: 100%;
   display: block;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 main > section:first-of-type {
@@ -16,31 +18,27 @@ main > section:first-of-type {
 h1 {
   font-family: "Outfit", sans-serif;
   color: white;
-  font-size: 5em;
+  font-size: clamp(3rem, 7vw, 5em);
   font-weight: bold;
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
 }
 
 h3 {
   font-family: "Inter", sans-serif;
   color: white;
-  font-size: 2.4em;
+  font-size: clamp(1.3rem, 3vw, 2.4em);
+  font-weight: 400;
+  margin: 0;
 }
 
 #main-results-section {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 10%;
+  justify-content: center;
+  margin-top: 4%;
   color: white;
+  padding: 0 40px 40px;
 }
-
-/* #main-results-section > div {
-  text-align: center;
-  width: 100%;
-  margin-top: 8%;
-} */
 
 #percentage-correct-answers,
 #percentage-wrong-answers {
@@ -52,16 +50,16 @@ h3 {
 .button-start {
   display: flex;
   justify-content: center;
-  margin: 30px;
+  margin: 30px 0;
 }
 
 .button-start button {
-  min-width: 20vw;
-  height: 6vw;
+  min-width: 260px;
+  min-height: 68px;
   border: none;
   cursor: pointer;
   text-transform: uppercase;
-  font-size: 1.8rem;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   font-weight: 700;
   color: #ffffff;
   background: transparent;
@@ -69,7 +67,7 @@ h3 {
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
-  padding: 1vw;
+  padding: 14px 28px;
 }
 
 .button-start button:hover {
@@ -93,7 +91,9 @@ article h4 {
   font-size: 0.8em;
   font-weight: lighter;
   text-align: center;
-  margin: 30px;
+  margin: 20px auto 0;
+  max-width: 240px;
+  line-height: 1.3;
 }
 
 .certificate p {
@@ -107,14 +107,25 @@ article h4 {
   text-align: center;
 }
 
-.wrongAnswer p {
-  font-size: 2.8em;
+.wrongAnswer p,
+.rightAnswer p {
+  font-size: clamp(2rem, 4vw, 2.8em);
   text-align: center;
+  margin: 0;
 }
 
-#percentage-wrong-answers {
-  font-size: 3em;
-  margin: 10px;
+#percentage-wrong-answers,
+#percentage-correct-answers {
+  font-size: clamp(2.2rem, 5vw, 3em);
+  margin: 10px 0;
+}
+
+#number-wrong-answers,
+#number-correct-answers {
+  font-size: 1em;
+  margin: 10px 0;
+  font-weight: lighter;
+  text-align: center;
 }
 
 .chart-wrapper {
@@ -128,38 +139,48 @@ article h4 {
 
 #result-message {
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70%;
+
+  width: 60%;            
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1.3;
+  word-break: break-word;
 }
 
-#number-wrong-answers {
-  font-size: 1em;
-  margin: 10px;
-  font-weight: lighter;
+/* texto principal */
+#result-message p:first-child {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
 }
 
-#percentage-correct-answers {
-  font-size: 3em;
-  margin: 10px;
+/* texto destacado */
+#result-message p:nth-child(2) {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #00f0ff;
+  margin: 4px 0;
 }
 
-#number-correct-answers {
-  font-size: 1em;
-  margin: 10px;
-  font-weight: lighter;
-}
-
-.rightAnswer p {
-  font-size: 2.8em;
-  text-align: center;
+/* texto pequeño */
+#result-message p:last-child {
+  font-size: 0.75rem;
+  margin: 0;
 }
 
 canvas {
   width: 400px !important;
   height: 400px !important;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .result-chart {
@@ -167,6 +188,8 @@ canvas {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
 .button-rate-us .button-start {
@@ -174,9 +197,8 @@ canvas {
 }
 
 #check-section {
-  padding: 90px 50px 100px 50px;
+  padding: 90px 50px 0;
   text-align: center;
-  padding-bottom: 0;
 }
 
 .answer-check {
@@ -204,8 +226,218 @@ canvas {
   animation: caduta 4s linear forwards;
 }
 
-
 @keyframes caduta {
-        to {
-          transform: translateY(110vh) rotate(720deg);
-        }
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+/* -------------------------
+   LAPTOP / SMALL DESKTOP
+------------------------- */
+@media (max-width: 1200px) {
+  #main-results-section {
+    padding: 0 28px 36px;
+  }
+
+  .result-chart {
+    gap: 28px;
+  }
+
+  .chart-wrapper {
+    width: 280px;
+    height: 280px;
+  }
+
+  canvas {
+    width: 340px !important;
+    height: 340px !important;
+  }
+
+  #check-section {
+    padding: 70px 28px 0;
+  }
+}
+
+/* -------------------------
+   TABLET
+------------------------- */
+@media (max-width: 992px) {
+  .up-logo img {
+    width: 150px;
+    margin-bottom: 28px;
+  }
+
+  #main-results-section {
+    margin-top: 20px;
+    padding: 0 22px 30px;
+  }
+
+  .result-chart {
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .rightAnswer,
+  .wrongAnswer {
+    order: initial;
+  }
+
+  .chart-wrapper {
+    width: 260px;
+    height: 260px;
+  }
+
+  canvas {
+    width: 300px !important;
+    height: 300px !important;
+  }
+
+  #result-message {
+    width: 72%;
+    top: 58%;
+  }
+
+  .button-start button {
+    min-width: 220px;
+    min-height: 60px;
+  }
+
+  #check-section {
+    padding: 60px 22px 0;
+  }
+
+  .answer-check {
+    font-size: 1.1em;
+  }
+}
+
+/* -------------------------
+   MOBILE
+------------------------- */
+@media (max-width: 768px) {
+  .up-logo img {
+    width: 135px;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    line-height: 1.3;
+  }
+
+  #main-results-section {
+    padding: 0 16px 26px;
+    margin-top: 16px;
+  }
+
+  .result-chart {
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .chart-wrapper {
+    width: 220px;
+    height: 220px;
+  }
+
+  canvas {
+    width: 250px !important;
+    height: 250px !important;
+  }
+
+  #result-message {
+    width: 78%;
+    top: 57%;
+    font-size: 0.9rem;
+  }
+
+  article h4 {
+    font-size: 1rem;
+  }
+
+  .certificate {
+    max-width: 200px;
+    font-size: 0.75em;
+  }
+
+  .certificate p {
+    font-size: 1.1em;
+  }
+
+  .button-start {
+    margin: 22px 0;
+  }
+
+  .button-start button {
+    width: 100%;
+    min-width: 100%;
+    min-height: 54px;
+    font-size: 1rem;
+    padding: 12px 18px;
+  }
+
+  #check-section {
+    padding: 44px 16px 0;
+  }
+
+  .answer-check {
+    margin-bottom: 22px;
+    font-size: 1rem;
+  }
+
+  .button-rate-us {
+    margin-top: 30px;
+  }
+}
+
+/* -------------------------
+   VERY SMALL PHONES
+------------------------- */
+@media (max-width: 480px) {
+  #main-results-section {
+    padding: 0 12px 22px;
+  }
+
+  .up-logo img {
+    width: 120px;
+  }
+
+  .chart-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+
+  canvas {
+    width: 220px !important;
+    height: 220px !important;
+  }
+
+  #result-message {
+    width: 82%;
+    font-size: 0.8rem;
+  }
+
+  #percentage-wrong-answers,
+  #percentage-correct-answers {
+    margin: 6px 0;
+  }
+
+  #number-wrong-answers,
+  #number-correct-answers {
+    font-size: 0.95rem;
+  }
+
+  .button-start button {
+    min-height: 50px;
+    font-size: 0.95rem;
+  }
+
+  #check-section {
+    padding: 34px 12px 0;
+  }
+}
