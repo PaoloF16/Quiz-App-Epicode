@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  background-color: #eb7f03;
+}
+main {
+  background-color: #edede9;
+  width: 40rem;
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: black 0px 4px 12px;
+  margin: auto;
+  margin-top: 5rem;
+}
+
+h1 {
+  color: #da4a2a;
+  padding-bottom: 2rem;
+  margin: 0;
+}
+button {
+  padding: 0;
+  border: none;
+  background: none;
+}
+#add-input,
+.task {
+  border-radius: 50px;
+  border: 0;
+  background-color: #eaeaeb;
+  padding: 20px;
+  width: 25rem;
+  text-align: left;
+}
+
+#add-input:focus {
+  outline: none !important;
+}
+#add-button {
+  background: #da4a2a;
+  background: linear-gradient 0deg
+    (rgba(#da4a2a) 0%, rgba(red, green, blue, alpha));
+  padding: 20px 30px;
+  box-shadow: 0 0.7em 1.5em -0.5em #da4a2a;
+  border-radius: 50px;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 700;
+}
+.task {
+  max-width: 31rem;
+  min-width: 31rem;
+  padding: 17px;
+  margin: auto;
+}
+.task:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.completed-task {
+  text-decoration: line-through;
+  text-decoration-color: #c72a15;
+  text-decoration-thickness: 2px;
+}
+.delete-task-button {
+  text-decoration: none;
+  float: right;
+  border-radius: 50px;
+}
+ol {
+  list-style-type: none !important;
+  padding-inline-start: 0;
+}
+li {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: small;
+  text-align: center;
+}
